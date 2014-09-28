@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" />
+<h:head>
+	<title>Sistema de Controle de TI</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<body>
+	<p:layout fullPage="true">
+
+		<!-- Layout do Topo -->
+		<p:layoutUnit position="north" size="80">
+			<!-- Logo -->
+			<div id="blocoCabecalho">
+				<div class="container">
+					<div class="imagem-logo">
+						<h:graphicImage library="imagens" name="samsung.gif"
+							id="logoSamsung" style="border=0" />
+					</div>
+				</div>
+
+				<!-- Mensagem de Boas Vindas -->
+				<div id="usuarioLogado">
+					<b>Bem Vindo(a): </b>
+					<h:outputText value="#{loginBean.usuario.login}" />
+				</div>
+			</div>
+		</p:layoutUnit>
+
+
+		<!-- Início do Layout Menu da Página -->
+		<p:layoutUnit position="west" size="170">
+			<!-- Inicio do Menu Principal -->
+			<h:form>
+				<p:menu style="font-size:12px">
+					<p:menuitem value="Home" action="sistema.jsf" />
+					<p:submenu label="Organizador">
+						<p:menuitem value="Manter Equipamento" action="equip" />
+						<p:menuitem value="Realizar Empréstimo" action="emprestimo" />
+					</p:submenu>
+					<p:submenu label="Sistema">
+						<p:menuitem value="Cadastrar Usuário" />
+						<p:menuitem value="Logout" url="index.jsf"></p:menuitem>
+					</p:submenu>
+				</p:menu>
+			</h:form>
+			<!-- Fim do Menu Principal -->
+		</p:layoutUnit>
+		<!-- Fim do Layout Menu da Página -->
+
+
+		<!-- Início do Layout Central da Página -->
+		<p:layoutUnit position="center">
+			<ui:insert name="centro">
+
+			</ui:insert>
+		</p:layoutUnit>
+		<!-- Fim do Layout Central da Página -->
+
+
+		<p:layoutUnit position="south" size="60">
+			Mensagens
+		</p:layoutUnit>
+	</p:layout>
+</body>
+</html>

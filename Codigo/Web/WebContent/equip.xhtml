@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" />
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<ui:decorate template="sistema.xhtml">
+	<ui:define name="centro">
+
+
+		<!-- Formulário para cadastro de Equipamentos -->
+		<h:form id="dados">
+			<h2>Cadastrar equipamento</h2>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Categoria:" />
+				<p:selectOneMenu value="#{equipamentoMB.equipamento.categoria}">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems value="#{categoriaMB.categoriaSelect}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Especificação:" />
+				<p:inputText id="idespec"
+					value="#{equipamentoMB.equipamento.especificacao}" size="25" />
+
+				<p:outputLabel value="Modelo:" />
+				<p:inputText id="modelo" value="#{equipamentoMB.equipamento.modelo}"
+					size="25" />
+
+				<p:outputLabel value="Fabricante:" />
+				<p:selectOneMenu id="idfabric"
+					value="#{equipamentoMB.equipamento.fabricante}">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems value="#{fabricanteMB.fabricanteSelect}" />
+				</p:selectOneMenu>
+
+
+
+				<p:outputLabel value="Serial:" />
+				<p:inputText id="idserial"
+					value="#{equipamentoMB.equipamento.serial}" size="25" />
+
+
+				<p:outputLabel value="Ativo fixo:" />
+				<p:inputText id="ativofixo"
+					value="#{equipamentoMB.equipamento.ativoFixo}" size="25" />
+
+
+				<p:outputLabel value="Cor:" />
+				<p:inputText id="idcor" value="#{equipamentoMB.equipamento.cor}"
+					size="25" />
+			</p:panelGrid>
+			<p:commandButton value="Cadastrar" action="#{equipamentoMB.salvar}"
+				update=":tabela" ajax="false" />
+		</h:form>
+		<br />
+		<!-- Fim do formulário para cadastro de equipamentos -->
+
+
+
+		<!-- Aqui inicia a tabela de dados -->
+		<h:form id="tabela">
+			<h2>Listar equipamento</h2>
+			<p:dataTable value="#{equipamentoMB.listaEquipamentos}"
+				var="equipamento" paginator="true" rows="10"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Cadastro" style="width:80px">
+					<p:outputLabel value="#{equipamento.dtCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:outputLabel>
+				</p:column>
+				<p:column headerText="Especificação">
+						#{equipamento.especificacao}
+					</p:column>
+				<p:column headerText="Categoria">
+						#{equipamento.categoria.nome}
+					</p:column>
+				<p:column headerText="Modelo">
+						#{equipamento.modelo}
+					</p:column>
+				<p:column headerText="Fabricante">
+					#{equipamento.fabricante.nome}
+				</p:column>
+
+				<p:column headerText="Cor">
+					#{equipamento.cor}
+					</p:column>
+
+
+				<p:column headerText="Serial">
+					#{equipamento.serial}
+				</p:column>
+
+
+				<p:column headerText="Ativo Fixo">
+					#{equipamento.ativoFixo}
+				</p:column>
+
+
+				<p:column headerText="Remover">
+					<p:commandLink update=":tabela" action="#{equipamentoMB.excluir}"
+						value="Remover">
+						<f:setPropertyActionListener target="#{equipamentoMB.equipamento}"
+							value="#{equipamento}" />
+					</p:commandLink>
+				</p:column>
+				<p:column headerText="Alterar">
+					<p:commandLink update=":dados" value="Alterar">
+						<f:setPropertyActionListener target="#{equipamentoMB.equipamento}"
+							value="#{equipamento}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:decorate>
+</html>

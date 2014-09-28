@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" />
+<h:head>
+	<title>Sistema de Controle de TI</title>
+	<h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<body>
+	<p:growl id="growl" sticky="true" showDetail="true" />
+	<h:form>
+		<p:panel header="Fazer login"
+			style="position: absolute; left:50%; topo: 50%; margin-left:-180px; margin-top: 250px;">
+			<p:outputLabel value="Usuário:" />
+			<br />
+			<p:inputText id="usuario" value="#{loginBean.usuario.login}" size="20" />
+			<br />
+			<p:outputLabel value="Senha:" />
+			<br />
+			<p:password id="senha" value="#{loginBean.usuario.senha}" size="20" />
+			<f:facet name="footer">
+				<p:commandButton value="Entrar"
+					action="#{loginBean.efetuarLogin()}" />
+			</f:facet>
+		</p:panel>
+	</h:form>
+</body>
+</html>

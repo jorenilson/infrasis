@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:decorate template="sistema.xhtml">
+	<ui:define name="centro">
+		<p:tabView style="vertical-align: top;">
+			<p:tab title="Empréstimo">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Solicitante"/>
+					<p:inputText size="45"/>
+					<p:outputLabel value="Departamento"/>
+					<p:inputText size="45"/>
+					<p:outputLabel value="Tipo de Requisição"/>
+					<p:selectCheckboxMenu label="teste"></p:selectCheckboxMenu>
+				</p:panelGrid>
+				
+			</p:tab>
+			
+			<p:tab title="Equipamento">
+			
+			</p:tab>
+		</p:tabView>		
+	</ui:define>
+</ui:decorate>
+</html>
