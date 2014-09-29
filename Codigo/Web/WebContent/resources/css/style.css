@@ -1,7 +1,7 @@
 /*CSS Reset*/
 *
 body{ 
-	font-size:14px; 
+	font-size:12px; 
 	color:#000; 
 	font-family:helvetica, arial, sans-serif;
 	background-color:#FFF;
@@ -163,8 +163,4 @@ form fieldset legend {
 label{
 	float: left;
 	width: 120px;
-}
-
-table, table tr, table td {
-   border: none !important;
 }
