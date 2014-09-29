@@ -16,8 +16,6 @@ public class Equipamento implements Serializable {
 	@GeneratedValue
 	private Long id;
 	@ManyToOne
-	private Categoria categoria;
-	private String especificacao;
 	private String modelo;
 	@ManyToOne
 	private Fabricante fabricante;
