@@ -33,8 +33,6 @@ public class EquipamentoDao {
 	}
 	
 	public List<Equipamento>listar(){
-		String jpql = "SELECT p FROM Equipamento p ORDER BY id";
-		Query query = em.createQuery(jpql);
-		return query.getResultList();
+		return dao.listar();
 	}
 }

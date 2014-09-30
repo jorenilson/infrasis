@@ -13,7 +13,7 @@
 	<p:layout fullPage="true">
 
 		<!-- Layout do Topo -->
-		<p:layoutUnit position="north" size="80">
+		<p:layoutUnit position="north" size="70">
 			<!-- Logo -->
 			<div id="blocoCabecalho">
 				<div class="container">
@@ -36,14 +36,14 @@
 		<p:layoutUnit position="west" size="170">
 			<!-- Inicio do Menu Principal -->
 			<h:form>
-				<p:menu style="font-size:12px">
+				<p:menu style="font-size:12px; width: auto">
 					<p:menuitem value="Home" action="sistema.jsf" />
 					<p:submenu label="Organizador">
 						<p:menuitem value="Manter Equipamento" action="equip" />
-						<p:menuitem value="Realizar Empréstimo" action="emprestimo" />
+						<p:menuitem value="Movimentação" action="emprestimo" />
 					</p:submenu>
 					<p:submenu label="Sistema">
-						<p:menuitem value="Cadastrar Usuário" />
+						<p:menuitem value="Usuário" action="manterusuario" />
 						<p:menuitem value="Logout" url="index.jsf"></p:menuitem>
 					</p:submenu>
 				</p:menu>

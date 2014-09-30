@@ -1,5 +1,7 @@
 package br.com.samsung.modelo.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -39,5 +41,21 @@ public class UsuarioDao {
 
 	public void inserir(Usuario usuario) {
 		dao.adicionar(usuario);
+	}
+
+	public void adicionar(Usuario t) {
+		dao.adicionar(t);
+	}
+
+	public void excluir(Usuario t) {
+		dao.excluir(t);
+	}
+
+	public Usuario buscar(Integer codigo) {
+		return dao.buscar(codigo);
+	}
+
+	public List<Usuario> listar() {
+		return dao.listar();
 	}
 }

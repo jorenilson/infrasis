@@ -11,11 +11,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Equipamento implements Serializable {
+public class Equipamento {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@ManyToOne
+	private Categoria categoria;
 	private String modelo;
 	@ManyToOne
 	private Fabricante fabricante;
@@ -24,23 +25,16 @@ public class Equipamento implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar dtCadastro;
 	private String Status;
-	private String cor;
+	private String descricao;
 
-	public String getCor() {
-		return cor;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setCor(String cor) {
-		this.cor = cor;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getEspecificacao() {
-		return especificacao;
-	}
-
-	public void setEspecificacao(String especificacao) {
-		this.especificacao = especificacao;
-	}
 
 	public Fabricante getFabricante() {
 		return fabricante;

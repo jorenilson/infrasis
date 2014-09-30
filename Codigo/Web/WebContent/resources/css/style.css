@@ -1,7 +1,7 @@
 /*CSS Reset*/
 *
 body{ 
-	font-size:12px; 
+	font-size:11px; 
 	color:#000; 
 	font-family:helvetica, arial, sans-serif;
 	background-color:#FFF;
@@ -128,7 +128,7 @@ input[type="submit"] {
 }
 
 .imagem-logo img{
-	width: 170px;
+	width: 160px;
 	float:left;
 	position: absolute;
 }
@@ -163,4 +163,10 @@ form fieldset legend {
 label{
 	float: left;
 	width: 120px;
+}
+
+table, table td {
+   border: none !important;
+   margin-top: 0px;
+   vertical-align: top;
 }

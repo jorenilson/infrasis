@@ -47,6 +47,7 @@ public class CategoriaMB{
 					categoriasSelect.add(item);
 				}
 			}
+			em.close();
 		}
 		return categoriasSelect;
 	}
