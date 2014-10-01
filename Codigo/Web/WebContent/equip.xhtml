@@ -13,7 +13,7 @@
 		<p:growl id="message" showDetail="true" />
 		<!-- Formulário para cadastro de Equipamentos -->
 		<h:form id="dados">
-			
+
 			<p:panelGrid columns="2" style="margin-top:5px; margin-left:10px;">
 				<p:outputLabel value="Categoria:" />
 				<p:selectOneMenu value="#{equipamentoMB.equipamento.categoria}">
@@ -45,12 +45,12 @@
 
 
 				<p:outputLabel value="Descricao" />
-				<p:inputTextarea cols="40"/>
-				
+				<p:inputTextarea cols="50" />
+
 				<f:facet name="footer">
 					<p:commandButton value="Cadastrar" action="#{equipamentoMB.salvar}"
-						update=":tabela :message" ajax="false" icon="ui-icon-check"/>
-					<p:commandButton value="Cancelar" icon="ui-icon-cancel"/>
+						update=":tabela :message" ajax="false" icon="ui-icon-check" />
+					<p:commandButton value="Cancelar" icon="ui-icon-cancel" />
 				</f:facet>
 			</p:panelGrid>
 		</h:form>
@@ -65,45 +65,46 @@
 				var="equipamento" paginator="true" rows="10"
 				paginatorPosition="bottom">
 
-				<p:column headerText="Cadastro" style="width:80px">
+				<p:column headerText="Cadastro" style="width:55px">
 					<p:outputLabel value="#{equipamento.dtCadastro.time}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</p:outputLabel>
 				</p:column>
 
-				<p:column headerText="Categoria">
+				<p:column headerText="Categoria"
+					style="width:150px">
 						#{equipamento.categoria.nome}
 					</p:column>
-				<p:column headerText="Modelo">
+				<p:column headerText="Modelo"
+					style="width:130px">
 						#{equipamento.modelo}
 					</p:column>
 				<p:column headerText="Fabricante">
 					#{equipamento.fabricante.nome}
 				</p:column>
 
-				<p:column headerText="Descrição">
-					#{equipamento.descricao}
-					</p:column>
-
-
-				<p:column headerText="Serial">
+				<p:column headerText="Serial" >
 					#{equipamento.serial}
 				</p:column>
 
 
-				<p:column headerText="Ativo Fixo">
+				<p:column headerText="Ativo fixo" style="width:60px">
 					#{equipamento.ativoFixo}
 				</p:column>
-				
 
-				<p:column headerText="Remover">
+				<p:column headerText="Descrição">
+					#{equipamento.descricao}
+				</p:column>
+
+
+				<p:column headerText="" style="width:45px">
 					<p:commandLink update=":tabela :message"
 						action="#{equipamentoMB.excluir}" value="Remover">
 						<f:setPropertyActionListener target="#{equipamentoMB.equipamento}"
 							value="#{equipamento}" />
 					</p:commandLink>
 				</p:column>
-				<p:column headerText="Alterar">
+				<p:column headerText="" style="width:45px">
 					<p:commandLink update=":dados" value="Alterar">
 						<f:setPropertyActionListener target="#{equipamentoMB.equipamento}"
 							value="#{equipamento}" />
