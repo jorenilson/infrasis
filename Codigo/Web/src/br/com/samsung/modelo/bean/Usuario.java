@@ -1,5 +1,7 @@
 package br.com.samsung.modelo.bean;
 
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,8 +17,16 @@ public class Usuario {
 	private String senha;
 	private String telefone;
 	private String email;
+	private Calendar dtCadastro;
 	
 	
+	
+	public Calendar getDtCadastro() {
+		return dtCadastro;
+	}
+	public void setDtCadastro(Calendar dtCadastro) {
+		this.dtCadastro = dtCadastro;
+	}
 	public String getTelefone() {
 		return telefone;
 	}

@@ -32,4 +32,8 @@ public class GenericDao<T> {
 		Query query = em.createQuery(jpql);
 		return query.getResultList();
 	}
+	
+	public void alterar(T t){
+		em.merge(t);
+	}
 }

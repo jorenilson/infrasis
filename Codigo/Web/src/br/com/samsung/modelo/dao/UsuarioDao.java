@@ -43,7 +43,7 @@ public class UsuarioDao {
 		dao.adicionar(usuario);
 	}
 
-	public void adicionar(Usuario t) {
+	public void cadastrar(Usuario t) {
 		dao.adicionar(t);
 	}
 
@@ -57,5 +57,9 @@ public class UsuarioDao {
 
 	public List<Usuario> listar() {
 		return dao.listar();
+	}
+	
+	public void alterar(Usuario usuario){
+		dao.alterar(usuario);
 	}
 }

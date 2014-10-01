@@ -57,21 +57,21 @@ public class EquipamentoMB implements Serializable {
 	public void salvar() {
 		
 		try{
-		EntityManager em = JPAUtil.getEntityManager();
-		EquipamentoDao dao = new EquipamentoDao(em);
-		em.getTransaction().begin();
-		equipamento.setDtCadastro(Calendar.getInstance());
-		if (equipamento.getId() != null) {
-			dao.alterar(equipamento);
-			addMessage("Sucesso", "Os dados foram alterados com êxito.");
-		} else {
-			dao.cadastrar(equipamento);
-			addMessage("Sucesso", "Os dados foram cadastrados com êxito.");
-		}
-		em.getTransaction().commit();
-		em.close();
-		equipamento = new Equipamento();
-		carregarEquipamentos();
+			EntityManager em = JPAUtil.getEntityManager();
+			EquipamentoDao dao = new EquipamentoDao(em);
+			em.getTransaction().begin();
+			equipamento.setDtCadastro(Calendar.getInstance());
+			if (equipamento.getId() != null) {
+				dao.alterar(equipamento);
+				addMessage("Sucesso", "Os dados foram alterados com êxito.");
+			} else {
+				dao.cadastrar(equipamento);
+				addMessage("Sucesso", "Os dados foram cadastrados com êxito.");
+			}
+			em.getTransaction().commit();
+			em.close();
+			equipamento = new Equipamento();
+			carregarEquipamentos();
 		
 		}catch(Exception e){
 			addMessage("Erro", "Ocorreu um erro ao tentar salvar os dados.");

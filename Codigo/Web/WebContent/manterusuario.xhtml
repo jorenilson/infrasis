@@ -11,29 +11,37 @@
 <body>
 	<ui:decorate template="sistema.xhtml">
 		<ui:define name="centro">
-			<h:form id="dados">
-				<h2>Cadastro de Usuarios</h2>
+			<h:form id="formdados">
 				<p:panelGrid columns="2">
 					<p:outputLabel value="Nome completo:"/>
-					<p:inputText id="idnome"/>
+					<p:inputText id="idnome" value="#{usuarioMB.usuario.nome}"/>
 					
 					<p:outputLabel value="Matricula:"/>
-					<p:inputText id="idmatricula"/>
+					<p:inputText id="idmatricula" value="#{usuarioMB.usuario.matricula}" />
 					
 					<p:outputLabel value="Telefone:"/>
-					<p:inputText id="idtelefone"/>
+					<p:inputText id="idtelefone" value="#{usuarioMB.usuario.telefone}"/>
 					
 					<p:outputLabel value="Email:"/>
-					<p:inputText id="idemail"/>
+					<p:inputText id="idemail" value="#{usuarioMB.usuario.email}" />
+					
+					<p:outputLabel value="Login:"/>
+					<p:inputText id="idlogin" value="#{usuarioMB.usuario.login}" />
+					
+					<p:outputLabel value="Senha:"/>
+					<p:password id="idsenha" value="#{usuarioMB.usuario.senha}" />
+					
 					<f:facet name="footer">
-						<p:commandButton type="button" icon="ui-icon-check" style="margin: 5px" value="Cadastrar"/>
+						<p:commandButton icon="ui-icon-check" style="margin: 5px" value="Cadastrar"
+						action="#{usuarioMB.salvar}" update=":tabela" ajax="false"/>
 					</f:facet>
 				</p:panelGrid>
 			</h:form>
 			
 			<br/>
 			
-			<h:form id="tabusuario">
+			<h:form id="tabela">
+				<h2>Listar usuários</h2>
 				<p:dataTable value="#{usuarioMB.listaUsuarios}"
 				var="usuarios" paginator="true" rows="10" paginatorPosition="bottom">
 					<p:column headerText="Nome completo" width="300">
@@ -56,16 +64,22 @@
 						#{usuarios.email}
 					</p:column>
 					
-					<p:column headerText="Remover">
-						<p:commandLink update=":tabusuario" value="Remover" action="#{usuarioMB.excluir()}">
+					<p:column headerText="Login">
+						#{usuarios.login}
+					</p:column>
+					
+					<p:column headerText="Login">
+						#{usuarios.login}
+					</p:column>
+					
+					<p:column headerText="">
+						<p:commandLink update=":tabela" value="Remover" action="#{usuarioMB.excluir}" id="idremoverusuario">
 							<f:setPropertyActionListener target="#{usuarioMB.usuario}"
 							 value="#{usuarios}" />
 						</p:commandLink>
 					</p:column>
 					
-					<p:column headerText="Alterar">
-						
-					</p:column>
+		
 					
 				</p:dataTable>
 			</h:form>

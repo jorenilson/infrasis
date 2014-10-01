@@ -29,7 +29,7 @@ public class EquipamentoDao {
 	}
 	
 	public void alterar(Equipamento equipamento){
-		em.merge(equipamento);
+		dao.alterar(equipamento);
 	}
 	
 	public List<Equipamento>listar(){
