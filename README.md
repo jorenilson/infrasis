@@ -2,9 +2,7 @@ infrasis
 ========
 
 Repositório destinado a manter o projeto para o sistema InfraSis.
-Este sistema tem o objetivo de realizar o controle sobre o emprestimo de items no departamento de TI da empresa. Atrvés dele<br>
-os usuários poderão cadastrar cada um dos equipamentos existentes e assim, eles poderão realizar o emprestimo desses materiais<br>
-e assim organizar a Entrada/Permanencia e Devolução de cada um dos itens.
+InfraSis é um sistema de empréstimo desenvolvido com o JPA+Hibernate+JSF+PrimeFaces. Ele foi configurado para o empréstimo de equipamentos numa empresa, porém pode ser facilmente adaptado para uso com DVD’s, CD’s e até mesmo livros de uma pequena biblioteca.
 <br>
 <br>
 Projeto de Sistemas de informação<br>
