@@ -5,14 +5,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
-
-
-
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
@@ -25,10 +21,10 @@ import br.com.samsung.modelo.dao.UsuarioDao;
 @ManagedBean
 public class UsuarioMB implements Serializable {
 	private Usuario usuario = new Usuario();
-	
+
 	/**
-	 * Método que irá permitir aos preencher os atributos
-	 * do usuário.
+	 * Método que irá permitir aos preencher os atributos do usuário.
+	 * 
 	 * @return
 	 */
 	public Usuario getUsuario() {
@@ -38,13 +34,13 @@ public class UsuarioMB implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
 	public List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
-	
 	/**
-	 * Método que retornará uma lista de todos os
-	 * usuários previamente cadastrados no sistema.
+	 * Método que retornará uma lista de todos os usuários previamente
+	 * cadastrados no sistema.
+	 * 
 	 * @return
 	 */
 	public List<Usuario> getListaUsuarios() {
@@ -52,59 +48,52 @@ public class UsuarioMB implements Serializable {
 	}
 
 	/**
-	 * Método que irá carregar todos os usuários cadastrados no
-	 * Sistema e que serão exibidos no grid principal do Formulário.
+	 * Método que irá carregar todos os usuários cadastrados no Sistema e que
+	 * serão exibidos no grid principal do Formulário.
 	 */
 	@PostConstruct
-	public void carregarUsuarios(){
+	public void carregarUsuarios() {
 		EntityManager em = JPAUtil.getEntityManager();
-		UsuarioDao dao = new UsuarioDao(em);
-		listaUsuarios = dao.listar();
+		UsuarioDao usuarioDao = new UsuarioDao(em);
+		listaUsuarios = usuarioDao.listar();
 		em.close();
 	}
-	
-	
+
 	/**
-	 * Este método irá excluir o registro selecionado do banco de dados
-	 * da aplicação.
+	 * Este método irá excluir o registro selecionado do banco de dados da
+	 * aplicação.
 	 */
-	public void excluir(){
+	public void excluir() {
 		EntityManager em = JPAUtil.getEntityManager();
-		UsuarioDao daoUsuario = new UsuarioDao(em);
+		UsuarioDao usuarioDao = new UsuarioDao(em);
 		em.getTransaction().begin();
-		daoUsuario.excluir(usuario);
+		usuarioDao.excluir(usuario);
 		em.getTransaction().commit();
 		em.close();
 		carregarUsuarios();
 	}
-	
+
 	/**
 	 * Método que irá realizar o Insert dos dados no BD.
 	 */
-	public void salvar(){
-		try{
+	public void salvar() {
+		try {
 			EntityManager em = JPAUtil.getEntityManager();
 			UsuarioDao daoUsuario = new UsuarioDao(em);
 			em.getTransaction().begin();
-			usuario.setDtCadastro(Calendar.getInstance());
-			if(usuario.getId() != null){
-				daoUsuario.alterar(usuario);
-			}else{
-				daoUsuario.cadastrar(usuario);
+			this.usuario.setDtCadastro(Calendar.getInstance());
+			if (this.usuario.getId() != null) {
+				daoUsuario.alterar(this.usuario);
+			} else {
+				daoUsuario.cadastrar(this.usuario);
 			}
 			em.getTransaction().commit();
 			em.close();
-			usuario = new Usuario();
+			this.usuario = new Usuario();
 			carregarUsuarios();
-		}catch(Exception e){
-			
+		} catch (Exception e) {
+			System.out.println("Erro");
 		}
-		
+
 	}
-	
-	public void addMessage(String summary, String detail){
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-		FacesContext.getCurrentInstance().addMessage(null, message);
-	}
-	
 }

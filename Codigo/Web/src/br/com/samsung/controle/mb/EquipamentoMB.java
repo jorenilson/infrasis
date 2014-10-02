@@ -81,9 +81,9 @@ public class EquipamentoMB implements Serializable {
 	public void excluir() {
 		try {
 			EntityManager em = JPAUtil.getEntityManager();
-			EquipamentoDao dao = new EquipamentoDao(em);
+			EquipamentoDao equipamentoDao = new EquipamentoDao(em);
 			em.getTransaction().begin();
-			dao.excluir(equipamento);
+			equipamentoDao.excluir(equipamento);
 			em.getTransaction().commit();
 			em.close();
 			carregarEquipamentos();

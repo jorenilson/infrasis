@@ -20,6 +20,7 @@ public class GenericDao<T> {
 	}
 	
 	public void excluir(T t){
+		t = em.merge(t);
 		em.remove(t);
 	}
 	

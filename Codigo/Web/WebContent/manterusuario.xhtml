@@ -73,7 +73,7 @@
 					</p:column>
 					
 					<p:column headerText="">
-						<p:commandLink update=":tabela" value="Remover" action="#{usuarioMB.excluir}" id="idremoverusuario">
+						<p:commandLink update=":tabela" value="Remover" action="#{usuarioMB.excluir}">
 							<f:setPropertyActionListener target="#{usuarioMB.usuario}"
 							 value="#{usuarios}" />
 						</p:commandLink>
