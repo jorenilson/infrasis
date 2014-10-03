@@ -24,9 +24,13 @@
 				</div>
 
 				<!-- Mensagem de Boas Vindas -->
-				<div id="usuarioLogado">
+				<div id="usuarioLogado" align="right">
 					<b>Bem Vindo(a): </b>
 					<h:outputText value="#{loginBean.usuario.login}" />
+					<br/>
+					<h:form>
+					<h:commandLink action="index" value="Logout" />
+					</h:form>
 				</div>
 			</div>
 		</p:layoutUnit>
@@ -39,8 +43,8 @@
 				<p:menu style="font-size:12px; width: auto">
 					<p:menuitem value="Home" action="sistema.jsf" />
 					<p:submenu label="Organizador">
-						<p:menuitem value="Manter Equipamento" action="equip" />
-						<p:menuitem value="Movimentação" action="emprestimo" />
+						<p:menuitem value="Manter Equipamento" action="manterequipamento" />
+						<p:menuitem value="Movimentação" action="emprestimo" disabled="true"/>
 					</p:submenu>
 					<p:submenu label="Sistema">
 						<p:menuitem value="Usuário" action="manterusuario" />

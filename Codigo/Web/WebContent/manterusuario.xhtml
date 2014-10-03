@@ -41,7 +41,6 @@
 			<br/>
 			
 			<h:form id="tabela">
-				<h2>Listar usuários</h2>
 				<p:dataTable value="#{usuarioMB.listaUsuarios}"
 				var="usuarios" paginator="true" rows="10" paginatorPosition="bottom">
 					<p:column headerText="Nome completo" width="300">
@@ -62,10 +61,6 @@
 					
 					<p:column headerText="Email" width="300">
 						#{usuarios.email}
-					</p:column>
-					
-					<p:column headerText="Login">
-						#{usuarios.login}
 					</p:column>
 					
 					<p:column headerText="Login">

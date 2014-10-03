@@ -14,26 +14,13 @@
 		<!-- Formulário para cadastro de Equipamentos -->
 		<h:form id="dados">
 
-			<p:panelGrid columns="2" style="margin-top:5px; margin-left:10px;">
+			<p:panelGrid columns="2">
 				<p:outputLabel value="Categoria:" />
 				<p:selectOneMenu value="#{equipamentoMB.equipamento.categoria}">
-					<f:selectItem itemLabel="Selecione" />
+					<f:selectItem itemLabel="Selecione uma categoria" />
 					<f:selectItems value="#{categoriaMB.categoriaSelect}" />
 				</p:selectOneMenu>
-
-				<p:outputLabel value="Modelo:" />
-				<p:inputText id="modelo" value="#{equipamentoMB.equipamento.modelo}"
-					size="40" />
-
-				<p:outputLabel value="Fabricante:" />
-				<p:selectOneMenu id="idfabric"
-					value="#{equipamentoMB.equipamento.fabricante}">
-					<f:selectItem itemLabel="Selecione" />
-					<f:selectItems value="#{fabricanteMB.fabricanteSelect}" />
-				</p:selectOneMenu>
-
-
-
+				
 				<p:outputLabel value="Serial:" />
 				<p:inputText id="idserial"
 					value="#{equipamentoMB.equipamento.serial}" size="40" />
@@ -43,9 +30,19 @@
 				<p:inputText id="ativofixo"
 					value="#{equipamentoMB.equipamento.ativoFixo}" size="40" />
 
+				<p:outputLabel value="Modelo:" />
+				<p:inputText id="modelo" value="#{equipamentoMB.equipamento.modelo}"
+					size="40" />
+
+				<p:outputLabel value="Fabricante:" />
+				<p:selectOneMenu id="idfabric"
+					value="#{equipamentoMB.equipamento.fabricante}">
+					<f:selectItem itemLabel="Selecione um fabricante" />
+					<f:selectItems value="#{fabricanteMB.fabricanteSelect}" />
+				</p:selectOneMenu>
 
 				<p:outputLabel value="Descricao" />
-				<p:inputTextarea cols="50" value="#{equipamentoMB.equipamento.descricao}"/>
+				<p:inputTextarea cols="41" value="#{equipamentoMB.equipamento.descricao}"/>
 
 				<f:facet name="footer">
 					<p:commandButton value="Cadastrar" action="#{equipamentoMB.salvar}"
@@ -60,9 +57,8 @@
 
 		<!-- Aqui inicia a tabela de dados -->
 		<h:form id="tabela">
-			<h2>Listar equipamento</h2>
 			<p:dataTable value="#{equipamentoMB.listaEquipamentos}"
-				var="equipamento" paginator="true" rows="10"
+				var="equipamento" paginator="true" rows="8"
 				paginatorPosition="bottom">
 
 				<p:column headerText="Cadastro" style="width:55px">
