@@ -16,11 +16,11 @@
 			style="position: absolute; left:50%; topo: 50%; margin-left:-180px; margin-top: 250px;">
 			<p:outputLabel value="Usuário:" />
 			<br />
-			<p:inputText id="usuario" value="#{loginBean.usuario.login}" size="20" />
+			<p:inputText id="usuario" value="#{loginBean.usuario.login}" size="30" />
 			<br />
 			<p:outputLabel value="Senha:" />
 			<br />
-			<p:password id="senha" value="#{loginBean.usuario.senha}" size="20" />
+			<p:password id="senha" value="#{loginBean.usuario.senha}" size="30" />
 			<f:facet name="footer">
 				<p:commandButton value="Entrar"
 					action="#{loginBean.efetuarLogin()}" />
