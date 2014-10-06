@@ -7,9 +7,31 @@
 <f:view contentType="text/html" />
 <h:head>
 	<title>Sistema de Controle de TI</title>
-	<h:outputStylesheet library="css" name="style.css"/>
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
-<body>
+<body onload="PF('dlg').show();">
+
+	<h:form>
+
+		<p:growl id="growl" showDetail="true" />
+		<p:dialog header="Realizar Login" widgetVar="dlg" closable="false" resizable="false">
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputLabel value="Informe Login" />
+				<p:inputText id="idusuario" value="#{loginBean.usuario.login}" />
+
+				<h:outputLabel value="Informe Senha" />
+				<p:password id="idsenha" value="#{loginBean.usuario.senha}" />
+				
+				<f:facet name="footer">
+					<p:commandButton value="Entrar"	action="#{loginBean.efetuarLogin}" />
+				</f:facet>
+			</h:panelGrid>
+		</p:dialog>
+
+	</h:form>
+
+
+	<!-- 
 	<p:growl id="growl" sticky="true" showDetail="true" />
 	<h:form>
 		<p:panel header="Fazer login"
@@ -27,5 +49,6 @@
 			</f:facet>
 		</p:panel>
 	</h:form>
+	 -->
 </body>
 </html>
