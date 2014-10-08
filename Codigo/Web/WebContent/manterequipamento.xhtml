@@ -59,7 +59,7 @@
 		<h:form id="tabela">
 			<p:dataTable value="#{equipamentoMB.listaEquipamentos}"
 				var="equipamento" paginator="true" rows="8"
-				paginatorPosition="bottom">
+				paginatorPosition="bottom" >
 
 				<p:column headerText="Cadastro" style="width:55px">
 					<p:outputLabel value="#{equipamento.dtCadastro.time}">
@@ -87,11 +87,6 @@
 				<p:column headerText="Ativo fixo" style="width:60px">
 					#{equipamento.ativoFixo}
 				</p:column>
-
-				<p:column headerText="Descrição">
-					#{equipamento.descricao}
-				</p:column>
-
 
 				<p:column headerText="" style="width:45px">
 					<p:commandLink update=":tabela :message"

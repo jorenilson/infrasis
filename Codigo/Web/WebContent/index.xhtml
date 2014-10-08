@@ -9,46 +9,24 @@
 	<title>Sistema de Controle de TI</title>
 	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
-<body onload="PF('dlg').show();">
-
+<body>
+	
+	
 	<h:form>
-
-		<p:growl id="growl" showDetail="true" />
-		<p:dialog header="Realizar Login" widgetVar="dlg" closable="false" resizable="false">
+	<p:growl id="growl" showDetail="true" />
+		<p:dialog header="Realizar Login" widgetVar="dlg" closable="false" resizable="false" visible="true">
 			<h:panelGrid columns="2" cellpadding="5">
-				<h:outputLabel value="Informe Login" />
-				<p:inputText id="idusuario" value="#{loginBean.usuario.login}" />
+				<h:outputLabel value="Login:"/>
+				<p:inputText id="idusuario" value="#{loginBean.usuario.login}" required="true" />
 
-				<h:outputLabel value="Informe Senha" />
-				<p:password id="idsenha" value="#{loginBean.usuario.senha}" />
+				<h:outputLabel value="Password:" />
+				<p:password id="idsenha" value="#{loginBean.usuario.senha}" required="true" />
 				
 				<f:facet name="footer">
-					<p:commandButton value="Entrar"	action="#{loginBean.efetuarLogin}" />
+					<p:commandButton value="Acessar" action="#{loginBean.efetuarLogin}" update=":growl" ajax="false"/>
 				</f:facet>
 			</h:panelGrid>
 		</p:dialog>
-
 	</h:form>
-
-
-	<!-- 
-	<p:growl id="growl" sticky="true" showDetail="true" />
-	<h:form>
-		<p:panel header="Fazer login"
-			style="position: absolute; left:50%; topo: 50%; margin-left:-180px; margin-top: 250px;">
-			<p:outputLabel value="Usuário:" />
-			<br />
-			<p:inputText id="usuario" value="#{loginBean.usuario.login}" size="30" />
-			<br />
-			<p:outputLabel value="Senha:" />
-			<br />
-			<p:password id="senha" value="#{loginBean.usuario.senha}" size="30" />
-			<f:facet name="footer">
-				<p:commandButton value="Entrar"
-					action="#{loginBean.efetuarLogin()}" />
-			</f:facet>
-		</p:panel>
-	</h:form>
-	 -->
 </body>
 </html>

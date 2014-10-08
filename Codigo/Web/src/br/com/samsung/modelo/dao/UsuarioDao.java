@@ -23,7 +23,7 @@ public class UsuarioDao {
 	 * @param usuario
 	 * @return
 	 */
-	public boolean existe(Usuario usuario) {
+	public boolean verificar(Usuario usuario) {
 		boolean resultado = false;
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();

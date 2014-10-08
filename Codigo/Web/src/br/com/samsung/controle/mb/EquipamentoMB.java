@@ -52,10 +52,9 @@ public class EquipamentoMB implements Serializable {
 	}
 
 	/*
-	 * Método que irá realizar o Insert dos dados no bd.
+	 * Método que irá cadastrar um novo equipamento.
 	 */
 	public void salvar() {
-		
 		try{
 			EntityManager em = JPAUtil.getEntityManager();
 			EquipamentoDao dao = new EquipamentoDao(em);
@@ -63,10 +62,10 @@ public class EquipamentoMB implements Serializable {
 			equipamento.setDtCadastro(Calendar.getInstance());
 			if (equipamento.getId() != null) {
 				dao.alterar(equipamento);
-				addMessage("Sucesso", "Os dados foram alterados com êxito.");
+				exibirMensagem("Sucesso", "Os dados foram alterados com êxito.");
 			} else {
 				dao.cadastrar(equipamento);
-				addMessage("Sucesso", "Os dados foram cadastrados com êxito.");
+				exibirMensagem("Sucesso", "Os dados foram cadastrados com êxito.");
 			}
 			em.getTransaction().commit();
 			em.close();
@@ -74,7 +73,7 @@ public class EquipamentoMB implements Serializable {
 			carregarEquipamentos();
 		
 		}catch(Exception e){
-			addMessage("Erro", "Ocorreu um erro ao tentar salvar os dados.");
+			exibirMensagem("Erro", "Ocorreu um erro ao tentar salvar os dados.");
 		}
 	}
 
@@ -87,15 +86,15 @@ public class EquipamentoMB implements Serializable {
 			em.getTransaction().commit();
 			em.close();
 			carregarEquipamentos();
-			addMessage("Sucesso", "Registro excluído com êxito.");
+			exibirMensagem("Sucesso", "Registro excluído com êxito.");
 		} catch (Exception e) {
-			addMessage("Erro", "Ocorreu um erro interno durante a tentativa de excluir o registro atual.");
+			exibirMensagem("Erro", "Ocorreu um erro interno durante a tentativa de excluir o registro atual.");
 		}
 	}
 
-	public void addMessage(String summary, String detail) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				summary, detail);
+	//Exibir mensagem
+	public void exibirMensagem(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 }
