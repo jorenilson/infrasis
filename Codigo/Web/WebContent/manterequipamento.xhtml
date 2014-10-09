@@ -29,8 +29,8 @@
 
 
 				<p:outputLabel value="Ativo fixo:" />
-				<p:inputText id="ativofixo"
-					value="#{equipamentoMB.equipamento.ativoFixo}" size="40" required="true"/>
+				<p:inputMask mask="9999999" id="ativofixo" value="#{equipamentoMB.equipamento.ativoFixo}" size="40" required="true" />
+				
 
 				<p:outputLabel value="Modelo:" />
 				<p:inputText id="modelo" value="#{equipamentoMB.equipamento.modelo}"
@@ -86,7 +86,7 @@
 				</p:column>
 
 
-				<p:column headerText="Ativo fixo" style="width:60px">
+				<p:column headerText="Ativo fixo" style="width:90px">
 					#{equipamento.ativoFixo}
 				</p:column>
 
