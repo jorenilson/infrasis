@@ -10,39 +10,41 @@
 </h:head>
 <ui:decorate template="sistema.xhtml">
 	<ui:define name="centro">
+		
 		<p:growl id="message" showDetail="true" />
+		
 		<!-- Formulário para cadastro de Equipamentos -->
 		<h:form id="dados">
 
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Categoria:" />
-				<p:selectOneMenu value="#{equipamentoMB.equipamento.categoria}">
+				<p:selectOneMenu value="#{equipamentoMB.equipamento.categoria}" required="true">
 					<f:selectItem itemLabel="Selecione uma categoria" />
 					<f:selectItems value="#{categoriaMB.categoriaSelect}" />
 				</p:selectOneMenu>
 				
 				<p:outputLabel value="Serial:" />
 				<p:inputText id="idserial"
-					value="#{equipamentoMB.equipamento.serial}" size="40" />
+					value="#{equipamentoMB.equipamento.serial}" size="40" required="true"/>
 
 
 				<p:outputLabel value="Ativo fixo:" />
 				<p:inputText id="ativofixo"
-					value="#{equipamentoMB.equipamento.ativoFixo}" size="40" />
+					value="#{equipamentoMB.equipamento.ativoFixo}" size="40" required="true"/>
 
 				<p:outputLabel value="Modelo:" />
 				<p:inputText id="modelo" value="#{equipamentoMB.equipamento.modelo}"
-					size="40" />
+					size="40" required="true"/>
 
 				<p:outputLabel value="Fabricante:" />
 				<p:selectOneMenu id="idfabric"
-					value="#{equipamentoMB.equipamento.fabricante}">
+					value="#{equipamentoMB.equipamento.fabricante}" required="true">
 					<f:selectItem itemLabel="Selecione um fabricante" />
 					<f:selectItems value="#{fabricanteMB.fabricanteSelect}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Descricao" />
-				<p:inputTextarea cols="41" value="#{equipamentoMB.equipamento.descricao}"/>
+				<p:inputTextarea cols="41" value="#{equipamentoMB.equipamento.descricao}" required="true"/>
 
 				<f:facet name="footer">
 					<p:commandButton value="Cadastrar" action="#{equipamentoMB.salvar}"

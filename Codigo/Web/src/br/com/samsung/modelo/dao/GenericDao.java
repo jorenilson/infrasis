@@ -37,4 +37,6 @@ public class GenericDao<T> {
 	public void alterar(T t){
 		em.merge(t);
 	}
+	
+	
 }

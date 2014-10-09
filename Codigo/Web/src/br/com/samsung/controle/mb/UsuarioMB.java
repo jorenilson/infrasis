@@ -17,7 +17,7 @@ import br.com.samsung.modelo.bean.Usuario;
 import br.com.samsung.modelo.dao.JPAUtil;
 import br.com.samsung.modelo.dao.UsuarioDao;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class UsuarioMB implements Serializable {
 	private Usuario usuario = new Usuario();

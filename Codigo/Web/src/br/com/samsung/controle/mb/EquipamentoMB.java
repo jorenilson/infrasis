@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -55,46 +56,45 @@ public class EquipamentoMB implements Serializable {
 	 * Método que irá cadastrar um novo equipamento.
 	 */
 	public void salvar() {
-		try{
-			EntityManager em = JPAUtil.getEntityManager();
-			EquipamentoDao dao = new EquipamentoDao(em);
-			em.getTransaction().begin();
-			equipamento.setDtCadastro(Calendar.getInstance());
-			if (equipamento.getId() != null) {
-				dao.alterar(equipamento);
-				exibirMensagem("Sucesso", "Os dados foram alterados com êxito.");
-			} else {
+		boolean pesqAtivo = false;
+		EntityManager em = JPAUtil.getEntityManager();
+		EquipamentoDao dao = new EquipamentoDao(em);
+		em.getTransaction().begin();
+		equipamento.setDtCadastro(Calendar.getInstance());
+		if (equipamento.getId() != null) {
+			dao.alterar(equipamento);
+			em.getTransaction().commit();
+			exibirMensagem(FacesMessage.SEVERITY_INFO, "Sucesso", "Os dados foram alterados com êxito.");
+		} else {
+			pesqAtivo = dao.buscarPorAtivo(equipamento);
+			if (pesqAtivo){
+				exibirMensagem(FacesMessage.SEVERITY_ERROR, "Erro", "Já existe um equipamento cadastrado com essas informações.");
+			}else{
 				dao.cadastrar(equipamento);
-				exibirMensagem("Sucesso", "Os dados foram cadastrados com êxito.");
+				em.getTransaction().commit();
+				exibirMensagem(FacesMessage.SEVERITY_INFO, "Sucesso", "Os dados foram cadastrados com êxito.");
 			}
-			em.getTransaction().commit();
-			em.close();
-			equipamento = new Equipamento();
-			carregarEquipamentos();
-		
-		}catch(Exception e){
-			exibirMensagem("Erro", "Ocorreu um erro ao tentar salvar os dados.");
 		}
+		em.close();
+		equipamento = new Equipamento();
+		carregarEquipamentos();
 	}
-
+	
+	
 	public void excluir() {
-		try {
-			EntityManager em = JPAUtil.getEntityManager();
-			EquipamentoDao equipamentoDao = new EquipamentoDao(em);
-			em.getTransaction().begin();
-			equipamentoDao.excluir(equipamento);
-			em.getTransaction().commit();
-			em.close();
-			carregarEquipamentos();
-			exibirMensagem("Sucesso", "Registro excluído com êxito.");
-		} catch (Exception e) {
-			exibirMensagem("Erro", "Ocorreu um erro interno durante a tentativa de excluir o registro atual.");
-		}
+		EntityManager em = JPAUtil.getEntityManager();
+		EquipamentoDao equipamentoDao = new EquipamentoDao(em);
+		em.getTransaction().begin();
+		equipamentoDao.excluir(equipamento);
+		em.getTransaction().commit();
+		em.close();
+		carregarEquipamentos();
+		exibirMensagem(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro excluído com êxito.");
 	}
 
 	//Exibir mensagem
-	public void exibirMensagem(String summary, String detail) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+	public void exibirMensagem(Severity tipo, String summary, String detail) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(tipo,summary,detail));
 	}
 }
