@@ -9,7 +9,7 @@
 
 	<lifecycle>
 		<phase-listener>
-			br.com.samsung.controle.mb.LoginPhaseListener
+			br.com.samsung.listener.LoginPhaseListener
 		</phase-listener>
 	</lifecycle>
 </faces-config>

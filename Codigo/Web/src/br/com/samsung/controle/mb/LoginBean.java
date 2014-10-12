@@ -25,21 +25,23 @@ import br.com.samsung.modelo.dao.UsuarioDao;
 @ManagedBean
 public class LoginBean {
 	EntityManager em = JPAUtil.getEntityManager();
-	private UsuarioDao usuarioDao = new UsuarioDao(em);
 	private Usuario usuario = new Usuario();
-	private String url = "sistema.jsf";
+	private boolean usuarioLogado;
+	
+	public boolean isUsuarioLogado() {
+		return usuarioLogado;
+	}
 
-
-	public void efetuarLogin() throws IOException {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		ExternalContext ec = fc.getExternalContext();
-		
-		boolean loginValido = usuarioDao.verificar(usuario);
+	//Realizar Login
+	public String efetuarLogin() {
+		UsuarioDao dao = new UsuarioDao(em);
+		boolean loginValido = dao.existe(usuario);
 		if (loginValido) {
-			ec.redirect(url);
+			usuarioLogado = true;
+			return "sistema?faces-redirect=true";
 		} else {
-			exibirMensagem(FacesMessage.SEVERITY_ERROR,"Erro", "Usuário ou Senha inválidos. "
-					+ "Verifique os dados informados e tente novamente.");			
+			usuarioLogado = false;
+			return "login";
 		}
 	}
 
@@ -50,11 +52,4 @@ public class LoginBean {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	//Exibir mensagem
-	public void exibirMensagem(Severity tipo, String summary, String detail) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(tipo,summary,detail));
-	}
-
 }
