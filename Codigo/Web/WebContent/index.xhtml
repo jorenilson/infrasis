@@ -11,8 +11,7 @@
 </h:head>
 <body>
 	<h:form>
-	<p:growl id="growl" showDetail="true" />
-		<p:dialog header="Realizar Login" widgetVar="dlg" closable="false" resizable="false" visible="true">
+		<p:dialog header="Realizar Login" closable="false" resizable="false" visible="true">
 			<h:panelGrid columns="2" cellpadding="5">
 				<h:outputLabel value="Login:"/>
 				<p:inputText id="idusuario" value="#{loginBean.usuario.login}" required="true" />
@@ -21,7 +20,7 @@
 				<p:password id="idsenha" value="#{loginBean.usuario.senha}" required="true" />
 				
 				<f:facet name="footer">
-					<p:commandButton value="Acessar" action="#{loginBean.efetuarLogin}" update=":growl" ajax="false"/>
+					<p:commandButton value="Acessar" action="#{loginBean.efetuarLogin}" />
 				</f:facet>
 			</h:panelGrid>
 		</p:dialog>

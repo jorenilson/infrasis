@@ -29,7 +29,7 @@
 					<h:outputText value="#{loginBean.usuario.login}" />
 					<br/>
 					<h:form>
-					<h:commandLink action="index" value="Logout" />
+					<h:commandLink action="#{loginBean.logout()}" value="Logout" />
 					</h:form>
 				</div>
 			</div>

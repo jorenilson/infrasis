@@ -23,18 +23,18 @@ public class UsuarioDao {
 	 * @param usuario
 	 * @return
 	 */
-	public boolean verificar(Usuario usuario) {
+	public boolean existe(Usuario usuario) {
 		boolean resultado = false;
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
-		Query query = em.createQuery("from Usuario u"
-				+ " where u.login = :pLogin and u.senha = :pSenha");
+		Query query = em.createQuery("SELECT u FROM Usuario u"
+				+ " WHERE u.login = :pLogin and u.senha = :pSenha");
 
 		query.setParameter("pLogin", usuario.getLogin());
 		query.setParameter("pSenha", usuario.getSenha());
 
-		resultado = !query.getResultList().isEmpty();
 		em.getTransaction().commit();
+		resultado = query.getResultList().isEmpty();
 		em.close();
 		return resultado;
 	}
