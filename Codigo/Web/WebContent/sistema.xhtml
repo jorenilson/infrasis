@@ -26,7 +26,7 @@
 				<!-- Mensagem de Boas Vindas -->
 				<div id="usuarioLogado" align="right">
 					<b>Bem Vindo(a): </b>
-					<h:outputText value="#{loginBean.usuario.login}" />
+					<h:outputText value="#{loginBean.usuario.nome}" />
 					<br/>
 					<h:form>
 					<h:commandLink action="#{loginBean.logout()}" value="Logout" />

@@ -1,5 +1,6 @@
 package br.com.samsung.modelo.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,7 +8,7 @@ import javax.persistence.Query;
 
 import br.com.samsung.modelo.bean.Usuario;
 
-public class UsuarioDao {
+public class UsuarioDao implements Serializable {
 	private final GenericDao<Usuario> dao;
 	private final EntityManager em;
 
@@ -23,8 +24,8 @@ public class UsuarioDao {
 	 * @param usuario
 	 * @return
 	 */
-	public boolean existe(Usuario usuario) {
-		boolean resultado = false;
+	public Usuario existe(Usuario usuario) {
+		
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
 		Query query = em.createQuery("SELECT u FROM Usuario u"
@@ -32,11 +33,8 @@ public class UsuarioDao {
 
 		query.setParameter("pLogin", usuario.getLogin());
 		query.setParameter("pSenha", usuario.getSenha());
-
 		em.getTransaction().commit();
-		resultado = query.getResultList().isEmpty();
-		em.close();
-		return resultado;
+		return (Usuario)query.getResultList();
 	}
 
 	public void inserir(Usuario usuario) {

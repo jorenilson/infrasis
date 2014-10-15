@@ -2,9 +2,9 @@ package br.com.samsung.controle.mb;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpSession;
 
 import br.com.samsung.modelo.bean.Usuario;
 import br.com.samsung.modelo.dao.JPAUtil;
@@ -15,37 +15,24 @@ import br.com.samsung.modelo.dao.UsuarioDao;
  * 
  * @author Jorenilson Lopes
  */
-@SessionScoped
+@ViewScoped
 @ManagedBean
 public class LoginBean {
 	EntityManager em = JPAUtil.getEntityManager();
 	private Usuario usuario = new Usuario();
-	private boolean usuarioLogado;
-
-	public boolean isUsuarioLogado() {
-		return usuarioLogado;
-	}
 
 	// Realizar Login
 	public String efetuarLogin() {
 		UsuarioDao dao = new UsuarioDao(em);
-		boolean loginValido = dao.existe(usuario);
-		if (loginValido) {
-			usuarioLogado = true;
+		Usuario loginUsuario = new Usuario(); 
+				loginUsuario = dao.existe(usuario);
+		if (loginUsuario!=null) {
 			return "sistema?faces-redirect=true";
 		} else {
-			usuarioLogado = false;
 			return "login";
 		}
 	}
 	
-	public String logout(){
-		FacesContext contexto = FacesContext.getCurrentInstance();
-		HttpSession sessao = (HttpSession)contexto.getExternalContext().getSession(false);
-		sessao.invalidate();
-		usuario = null;
-		return "index";
-	}
 
 	public Usuario getUsuario() {
 		return usuario;
