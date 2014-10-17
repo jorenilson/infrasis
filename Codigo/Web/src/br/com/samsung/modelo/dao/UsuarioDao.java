@@ -24,7 +24,7 @@ public class UsuarioDao implements Serializable {
 	 * @param usuario
 	 * @return
 	 */
-	public Usuario existe(Usuario usuario) {
+	public List<Usuario>verificarUsuario(Usuario usuario) {
 		
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
@@ -34,7 +34,8 @@ public class UsuarioDao implements Serializable {
 		query.setParameter("pLogin", usuario.getLogin());
 		query.setParameter("pSenha", usuario.getSenha());
 		em.getTransaction().commit();
-		return (Usuario)query.getResultList();
+		em.close();
+		return query.getResultList();
 	}
 
 	public void inserir(Usuario usuario) {

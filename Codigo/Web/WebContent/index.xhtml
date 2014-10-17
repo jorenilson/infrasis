@@ -13,11 +13,11 @@
 	<h:form>
 		<p:dialog header="Realizar Login" closable="false" resizable="false" visible="true">
 			<h:panelGrid columns="2" cellpadding="5">
-				<h:outputLabel value="Login:"/>
+				<h:outputLabel value="Usuário"/>
 				<p:inputText id="idusuario" value="#{loginBean.usuario.login}" required="true" />
 
-				<h:outputLabel value="Password:" />
-				<p:password id="idsenha" value="#{loginBean.usuario.senha}" required="true" />
+				<h:outputLabel value="Senha:" />
+				<p:keyboard password="true" value="#{loginBean.usuario.senha}" required="true" />
 				
 				<f:facet name="footer">
 					<p:commandButton value="Acessar" action="#{loginBean.efetuarLogin}" />

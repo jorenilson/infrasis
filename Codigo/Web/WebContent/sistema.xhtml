@@ -48,7 +48,7 @@
 					</p:submenu>
 					<p:submenu label="Sistema">
 						<p:menuitem value="Usuário" action="manterusuario" />
-						<p:menuitem value="Logout" url="index.jsf"></p:menuitem>
+						<p:menuitem value="Logout" actionListener="#{loginBean.encarrearSessao}"></p:menuitem>
 					</p:submenu>
 				</p:menu>
 			</h:form>
