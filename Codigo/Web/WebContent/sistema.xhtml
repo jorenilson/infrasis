@@ -29,7 +29,7 @@
 					<h:outputText value="#{loginBean.usuario.nome}" />
 					<br/>
 					<h:form>
-					<h:commandLink action="#{loginBean.logout()}" value="Logout" />
+					<h:commandLink action="#{loginBean.encarrearSessao}" value="Logout" />
 					</h:form>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 					<p:menuitem value="Home" action="sistema.jsf" />
 					<p:submenu label="Organizador">
 						<p:menuitem value="Manter Equipamento" action="manterequipamento" />
-						<p:menuitem value="Movimentação" action="emprestimo" disabled="true"/>
+						<p:menuitem value="Movimentação" action="emprestimo" disabled="false"/>
 					</p:submenu>
 					<p:submenu label="Sistema">
 						<p:menuitem value="Usuário" action="manterusuario" />

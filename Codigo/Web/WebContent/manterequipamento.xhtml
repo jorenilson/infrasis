@@ -60,8 +60,8 @@
 		<!-- Aqui inicia a tabela de dados -->
 		<h:form id="tabela">
 			<p:dataTable value="#{equipamentoMB.listaEquipamentos}"
-				var="equipamento" paginator="true" rows="8"
-				paginatorPosition="bottom" >
+				var="equipamento" paginator="true" rows="7"
+				paginatorPosition="bottom">
 
 				<p:column headerText="Cadastro" style="width:55px">
 					<p:outputLabel value="#{equipamento.dtCadastro.time}">
@@ -81,27 +81,35 @@
 					#{equipamento.fabricante.nome}
 				</p:column>
 
-				<p:column headerText="Serial" >
+				<p:column headerText="Serial" filterBy="#{equipamento.serial}" filterMatchMode="contains">
 					#{equipamento.serial}
 				</p:column>
 
 
-				<p:column headerText="Ativo fixo" style="width:90px">
+				<p:column headerText="Ativo fixo" filterBy="#{equipamento.ativoFixo}" filterMatchMode="contains">
 					#{equipamento.ativoFixo}
 				</p:column>
 
-				<p:column headerText="" style="width:45px">
-					<p:commandLink update=":tabela :message"
-						action="#{equipamentoMB.excluir}" value="Remover">
+				<p:column headerText="" style="width:15px">
+					<p:commandLink id="linkExcluir" update=":tabela :message" action="#{equipamentoMB.excluir}">
+						<h:graphicImage value="resources/imagens/deletar.png" />
 						<f:setPropertyActionListener target="#{equipamentoMB.equipamento}"
 							value="#{equipamento}" />
 					</p:commandLink>
+					<p:tooltip for="linkExcluir" value="Excluir"/>
 				</p:column>
-				<p:column headerText="" style="width:45px">
-					<p:commandLink update=":dados" value="Alterar">
+				
+				
+				<p:column headerText="" style="width:15px">
+					<p:commandLink id="linkAlterar" update=":dados">
+						<h:graphicImage value="/resources/imagens/alterar.png" />
 						<f:setPropertyActionListener target="#{equipamentoMB.equipamento}"
 							value="#{equipamento}" />
 					</p:commandLink>
+					<p:tooltip for="linkAlterar" value="Alterar"/>
+				</p:column>
+				<p:column>
+				
 				</p:column>
 			</p:dataTable>
 		</h:form>

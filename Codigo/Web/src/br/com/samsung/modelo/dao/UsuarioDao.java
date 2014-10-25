@@ -9,6 +9,10 @@ import javax.persistence.Query;
 import br.com.samsung.modelo.bean.Usuario;
 
 public class UsuarioDao implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final GenericDao<Usuario> dao;
 	private final EntityManager em;
 
@@ -24,9 +28,9 @@ public class UsuarioDao implements Serializable {
 	 * @param usuario
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Usuario>verificarUsuario(Usuario usuario) {
-		
-		EntityManager em = JPAUtil.getEntityManager();
+
 		em.getTransaction().begin();
 		Query query = em.createQuery("SELECT u FROM Usuario u"
 				+ " WHERE u.login = :pLogin and u.senha = :pSenha");
@@ -34,7 +38,6 @@ public class UsuarioDao implements Serializable {
 		query.setParameter("pLogin", usuario.getLogin());
 		query.setParameter("pSenha", usuario.getSenha());
 		em.getTransaction().commit();
-		em.close();
 		return query.getResultList();
 	}
 

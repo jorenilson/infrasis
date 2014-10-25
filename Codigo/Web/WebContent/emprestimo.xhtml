@@ -7,46 +7,80 @@
 <ui:decorate template="sistema.xhtml">
 	<ui:define name="centro">
 		<h:form id="formEmprestimo">
-			<p:tabView>
-				<p:tab title="Dados da Solicitação">
-					<p:panelGrid columns="4">
-						<f:facet name="header">Preencha o formulário com os dados da solicitação</f:facet>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Nome do Solicitante:"/>
+				<p:inputText/>
+			</p:panelGrid>
+		</h:form>
+		<br/>
+		<h:form id="formEquipamentos">
+			<p:dataTable value="#{equipamentoMB.listaEquipamentos}"
+				var="equipamento" paginator="true" rows="7"
+				paginatorPosition="bottom" widgetVar="equipTabela">
+
+				<p:column headerText="Cadastro" style="width:55px">
+					<p:outputLabel value="#{equipamento.dtCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:outputLabel>
+				</p:column>
+
+				<p:column headerText="Categoria">
+					#{equipamento.categoria.nome}
+				</p:column>
+				<p:column headerText="Modelo">
+						#{equipamento.modelo}
+					</p:column>
+				<p:column headerText="Fabricante">
+					#{equipamento.fabricante.nome}
+				</p:column>
+
+				<p:column headerText="Serial" filterBy="#{equipamento.serial}" filterMatchMode="contains">
+					#{equipamento.serial}
+				</p:column>
+
+
+				<p:column headerText="Ativo fixo" filterBy="#{equipamento.ativoFixo}" filterMatchMode="contains">
+					#{equipamento.ativoFixo}	
+				</p:column>
+				
+				<p:column headerText="" style="width:15px">
+					<p:commandLink id="linkAdicionar">
+						<h:graphicImage value="resources/imagens/adicionar.png" />
+					</p:commandLink>
+					<p:tooltip for="linkAdicionar" value="Adicionar"/>
+				</p:column>
+				
+				<p:column>
+				
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+		<br/>
+		<br/>
+		<h:form id="formRequisicao">
+			<p:dataTable emptyMessage="Não existem itens a esta requisição">
+
+				<p:column headerText="Cadastro" style="width:55px">
+					
+				</p:column>
+				<p:column headerText="Categoria" style="width:150px">
 						
-						<p:outputLabel value="Tipo da Movimentação" />
-						<p:selectOneRadio>
-							<f:selectItem itemValue="Teste1" itemLabel="Empréstimo"/>
-							<f:selectItem itemValue="Teste1" itemLabel="Outros"/>
-						</p:selectOneRadio>
+				</p:column>
+				<p:column headerText="Modelo" style="width:130px">
 						
-						<p:outputLabel value="Nome completo do responsável:" />
-						<p:inputText size="40" />
-						<p:outputLabel value="Email do responsável:" />
-						<p:inputText size="40" />
-						<p:outputLabel value="Nome da chefia Imediata:" />
-						<p:inputText size="40" />
-						<p:outputLabel value="Email da chefia imediata:" />
-						<p:inputText size="40" />
-						<p:outputLabel value="Departamento:" />
-						<p:inputText size="30" />
-						<p:outputLabel value="Previsão para Entrega:" />
-						<p:calendar id="iddatahoraaprova" pattern="dd/MM/yyyy HH:mm:ss"
-							size="26" showOn="button" />
-						<p:outputLabel value="Anexar um documento:" />
-						<p:fileUpload label="Procurar" mode="simple" />
-						<p:outputLabel value="Previsão de Entrega" />
-						<p:calendar id="iddatahoraentrega" pattern="dd/MM/yyyy HH:mm:ss"
-							size="26" showOn="button" />
-						<p:outputLabel value="Observação:" />
-						<p:inputTextarea cols="40" />
-						<f:facet name="footer">
-							<p:commandButton type="button" icon="ui-icon-check" style="margin: 5px" value="Registrar"/>
-							<p:commandButton type="button" icon="ui-icon-cancel" style="margin: 10px" value="Cancelar"/>
-						</f:facet>
-					</p:panelGrid>
-				</p:tab>
-				<p:tab title="Adicionar Item">
-				</p:tab>
-			</p:tabView>
+				</p:column>
+				<p:column headerText="Fabricante">
+					
+				</p:column>
+				<p:column headerText="Serial" >
+					
+				</p:column>
+				<p:column headerText="Ativo fixo" style="width:90px">
+					
+				</p:column>
+			</p:dataTable>
+		
 		</h:form>
 	</ui:define>
 </ui:decorate>

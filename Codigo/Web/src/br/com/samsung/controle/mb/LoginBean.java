@@ -10,6 +10,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import br.com.samsung.modelo.bean.Usuario;
@@ -28,8 +30,7 @@ import br.com.samsung.modelo.dao.UsuarioDao;
 public class LoginBean implements Serializable {
 	
 	EntityManager em = JPAUtil.getEntityManager();
-	private Usuario usuario;
-	private HttpSession sessao;
+	private Usuario usuario = new Usuario();
 	private boolean usuarioLogado;
 
 	public boolean isUsuarioLogado() {
@@ -48,10 +49,11 @@ public class LoginBean implements Serializable {
 		usuario.setNome(nomeUsuario);
 		if (usuarioLogin != null || !usuarioLogin.isEmpty()) {
 			usuarioLogado = true;
+			//criarSessao(usuario);
 			return "sistema?faces-redirect=true";
 		} else {
 			usuarioLogado = false;
-			return "login";
+			return "index?faces-redirect=true";
 		}
 	}
 	
@@ -67,7 +69,7 @@ public class LoginBean implements Serializable {
 	public void encarrearSessao(){
 		try{
 			FacesContext ctx = FacesContext.getCurrentInstance();
-			sessao = (HttpSession) ctx.getExternalContext().getSession(false);
+			HttpSession sessao = (HttpSession) ctx.getExternalContext().getSession(false);
 			sessao.invalidate();
 			ctx.getExternalContext().redirect("/infrasisjsf/index.jsf");
 		}catch(Exception e){
