@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" />
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<ui:decorate template="sistema.xhtml">
+	<ui:define name="centro">
+
+		<p:growl id="message" showDetail="true" />
+
+
+		<!-- Barra de Menu Interno ao Manter Equipamento -->
+		<h:form>
+			<p:menubar>
+				<p:submenu label="Cadastrar">
+					<p:menuitem value="Nova categoria" icon="ui-icon-contact"
+						onclick="PF('dlgCategoria').show();" />
+					<p:menuitem value="Novo fabricante" icon="ui-icon-pencil"
+						onclick="PF('dlgFabricante').show()" />
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+
+		<br />
+
+		<!-- Formulário para cadastro de Equipamentos -->
+		<h:form id="dados">
+
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Categoria:" />
+				<p:selectOneMenu id="formCategoria"	value="#{emprestimoMB.idMaterial}" required="true" effect="fold">
+					<f:selectItem itemLabel="Selecione categoria" />
+					<f:selectItems value="#{categoriaMB.categorias}" var="c" itemValue="#{c.id}" itemLabel="#{c.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Serial:" />
+				<p:inputText id="idserial" value="#{materialMB.material.serial}"
+					size="40" required="true" />
+
+
+				<p:outputLabel value="Ativo fixo:" />
+				<p:inputText id="ativofixo" value="#{materialMB.material.ativoFixo}"
+					size="40" required="true" />
+
+
+				<p:outputLabel value="Modelo:" />
+				<p:inputText id="modelo" value="#{materialMB.material.modelo}"
+					size="40" required="true" />
+
+				<p:outputLabel value="Fabricante:" />
+				<p:selectOneMenu id="idfabric" value="#{emprestimoMB.idFabricante}"
+					required="true" effect="fold">
+					<f:selectItem itemLabel="Selecione fabricante" />
+					<f:selectItems value="#{fabricanteMB.fabricantes}" var="f"
+						itemValue="#{f.id}" itemLabel="#{f.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Descricao" />
+				<p:inputTextarea cols="41" value="#{materialMB.material.descricao}"
+					required="true" />
+
+				<f:facet name="footer">
+					<p:commandButton id="btGravar" value="Gravar"
+						action="#{materialMB.salvar}" update=":tabela" ajax="false" />
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+		<br />
+		<!-- Fim do formulário para cadastro de equipamentos -->
+
+
+		<!-- Aqui inicia a tabela de dados -->
+		<h:form id="tabela">
+			<p:dataTable value="#{materialMB.materiais}" var="material"
+				paginator="true" rows="10" paginatorPosition="bottom" emptyMessage="Sem registro a exibir">
+
+				<p:column headerText="Cadastro">
+					<p:outputLabel value="#{material.dtCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:outputLabel>
+				</p:column>
+
+				<p:column headerText="Categoria" style="width:150px">
+					#{material.categoria.nome}
+				</p:column>
+				<p:column headerText="Modelo" style="width:130px">
+						#{material.modelo}
+					</p:column>
+				<p:column headerText="Fabricante">
+					#{material.fabricante.nome}
+				</p:column>
+
+				<p:column headerText="Serial">
+					#{material.serial}
+				</p:column>
+
+
+				<p:column headerText="Ativo fixo">
+					#{material.ativoFixo}
+				</p:column>
+
+				<p:column>
+					<p:commandLink value="Excluir" update=":tabela"
+						action="#{materialMB.excluir}">
+						<f:setPropertyActionListener target="#{materialMB.material}"
+							value="#{material}" />
+					</p:commandLink>
+				</p:column>
+
+
+				<p:column headerText="">
+					<p:commandLink id="linkAlterar" update=":dados" value="Alterar">
+						<f:setPropertyActionListener target="#{materialMB.material}"
+							value="#{material}" />
+					</p:commandLink>
+				</p:column>
+				<p:column>
+
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+
+		<!-- Cadastro de Categorias -->
+		<p:dialog header="Cadastro de Categorias" widgetVar="dlgCategoria"
+			modal="false" height="300" width="360" showEffect="explode"
+			hideEffect="bounce">
+			<h:form id="dadosCategoria">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Nome da Categoria:" />
+					<p:inputText value="#{categoriaMB.categoria.nome}" />
+					<p:outputLabel value="Observação:" />
+					<p:inputTextarea value="#{categoriaMB.categoria.observacao}" />
+					<f:facet name="footer">
+						<p:commandButton id="btGravarCategoria" value="Gravar"
+							action="#{categoriaMB.salvar}" update=":dados :tabelaCategorias" />
+					</f:facet>
+				</p:panelGrid>
+			</h:form>
+
+
+			<h:form id="tabelaCategorias">
+				<p:dataTable value="#{categoriaMB.categorias}" var="categoria"
+					paginator="true" paginatorPosition="bottom" rows="5" emptyMessage="Sem registro a exibir">
+					<p:column headerText="Código" style="width:40px">
+						#{categoria.id}
+					</p:column>
+
+					<p:column headerText="Categoria" style="width:133px">
+						#{categoria.nome}
+					</p:column>
+					
+					<p:column headerText="" style="width:42px">
+						<p:commandLink value="Excluir" update=":tabelaCategorias :dados"
+							action="#{categoriaMB.excluir}">
+							<f:setPropertyActionListener target="#{categoriaMB.categoria}"
+								value="#{categoria}" />
+						</p:commandLink>
+					</p:column>
+					
+					<p:column headerText="" style="width:30px">
+						<p:commandLink value="Alterar">
+							
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:dialog>
+
+
+
+
+
+
+
+
+		<p:dialog header="Cadastro de Fabricantes" widgetVar="dlgFabricante"
+			modal="false" height="300" width="600"  showEffect="explode"
+			hideEffect="bounce">
+			<h:form id="dadosFabricante">
+				<p:panelGrid columns="2" style="width:423px">
+					<p:outputLabel value="Nome fantasia:" />
+					<p:inputText value="#{fabricanteMB.fabricante.nome}" />
+					<p:outputLabel value="CNPJ:" />
+					<p:inputMask mask="99.999.999/9999-99" value="#{fabricanteMB.fabricante.cnpj}" />
+					<f:facet name="footer">
+						<p:commandButton id="btGravarFabricante" value="Gravar" action="#{fabricanteMB.salvar}" update=":dados :tabelaFabricante" />
+					</f:facet>
+				</p:panelGrid>
+
+
+			</h:form>
+
+
+			<!-- Tabela de Fabricantes -->
+			
+			<h:form id="tabelaFabricante">
+				<p:dataTable value="#{fabricanteMB.fabricantes}" var="fabricante" paginator="true"
+					paginatorPosition="bottom" rows="5" emptyMessage="Sem registro a exibir.">
+					<p:column headerText="Código" style="width:40px">
+						#{fabricante.id}
+					</p:column>
+					
+					<p:column headerText="Fabricante" style="width:180px">
+						#{fabricante.nome}
+					</p:column>
+					
+					<p:column headerText="CNPJ" style="width:125px">
+						#{fabricante.cnpj}
+					</p:column>
+					
+					<p:column headerText="" style="width:30px">
+						<p:commandLink value="Excluir" action="#{fabricanteMB.excluir}" update=":tabelaFabricante :dados">
+							<f:setPropertyActionListener target="#{fabricanteMB.fabricante}"	value="#{fabricante}" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="" style="width:30px">
+						<p:commandLink value="Alterar">
+							
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+
+
+</ui:decorate>
+</html>

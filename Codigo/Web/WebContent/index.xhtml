@@ -11,16 +11,16 @@
 </h:head>
 <body>
 	<h:form>
-		<p:dialog header="Realizar Login" closable="false" resizable="false" visible="true">
+		<p:dialog header="Autenticar - [SCTI]" closable="false" resizable="false" visible="true" showEffect="drop">
 			<h:panelGrid columns="2" cellpadding="5">
-				<h:outputLabel value="Usuário"/>
-				<p:inputText id="idusuario" value="#{loginBean.usuario.login}" required="true" />
+				<h:outputLabel value="Usuário:*"/>
+				<p:inputText id="idusuario" value="#{loginMB.usuario.login}" required="true" />
 
-				<h:outputLabel value="Senha:" />
-				<p:keyboard password="true" value="#{loginBean.usuario.senha}" required="true" />
+				<h:outputLabel value="Senha:*" />
+				<p:password password="true" value="#{loginMB.usuario.senha}" required="true" />
 				
 				<f:facet name="footer">
-					<p:commandButton value="Acessar" action="#{loginBean.efetuarLogin}" />
+					<p:commandButton value="Acessar" action="#{loginMB.efetuarLogin}" />
 				</f:facet>
 			</h:panelGrid>
 		</p:dialog>

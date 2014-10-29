@@ -21,4 +21,8 @@
   <session-config>
   	<session-timeout>30</session-timeout>
   </session-config>
+  <context-param>
+  	<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+  	<param-value>client</param-value>
+  </context-param>
 </web-app>

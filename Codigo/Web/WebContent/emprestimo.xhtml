@@ -8,79 +8,92 @@
 	<ui:define name="centro">
 		<h:form id="formEmprestimo">
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Nome do Solicitante:"/>
-				<p:inputText/>
+				<p:outputLabel value="Nome do Solicitante:" />
+				<p:inputText />
 			</p:panelGrid>
 		</h:form>
-		<br/>
-		<h:form id="formEquipamentos">
-			<p:dataTable value="#{equipamentoMB.listaEquipamentos}"
-				var="equipamento" paginator="true" rows="7"
-				paginatorPosition="bottom" widgetVar="equipTabela">
+		<br />
+		<h:form id="tabelaMateriais">
+			<p:dataTable value="#{materialMB.materiais}" var="material" paginator="true" paginatorPosition="bottom" >
 
 				<p:column headerText="Cadastro" style="width:55px">
-					<p:outputLabel value="#{equipamento.dtCadastro.time}">
+					<p:outputLabel value="#{material.dtCadastro.time}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</p:outputLabel>
 				</p:column>
 
 				<p:column headerText="Categoria">
-					#{equipamento.categoria.nome}
+					#{material.categoria.nome}
 				</p:column>
 				<p:column headerText="Modelo">
-						#{equipamento.modelo}
+						#{material.modelo}
 					</p:column>
 				<p:column headerText="Fabricante">
-					#{equipamento.fabricante.nome}
+					#{material.fabricante.nome}
 				</p:column>
 
-				<p:column headerText="Serial" filterBy="#{equipamento.serial}" filterMatchMode="contains">
-					#{equipamento.serial}
+				<p:column headerText="Serial">
+					#{material.serial}
 				</p:column>
 
 
-				<p:column headerText="Ativo fixo" filterBy="#{equipamento.ativoFixo}" filterMatchMode="contains">
-					#{equipamento.ativoFixo}	
+				<p:column headerText="Ativo fixo">
+					#{material.ativoFixo}	
 				</p:column>
-				
-				<p:column headerText="" style="width:15px">
-					<p:commandLink id="linkAdicionar">
-						<h:graphicImage value="resources/imagens/adicionar.png" />
-					</p:commandLink>
-					<p:tooltip for="linkAdicionar" value="Adicionar"/>
+
+				<p:column headerText="">
+					<p:commandButton action="#{emprestimoMB.adicionarItem}" update=":tbEmprestimo" value="Adicionar">
+					</p:commandButton>
 				</p:column>
-				
+
 				<p:column>
-				
+
 				</p:column>
-				
+
 			</p:dataTable>
 		</h:form>
-		<br/>
-		<br/>
-		<h:form id="formRequisicao">
-			<p:dataTable emptyMessage="Não existem itens a esta requisição">
+		<br />
+		<br />
 
-				<p:column headerText="Cadastro" style="width:55px">
-					
-				</p:column>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<h:form id="tbEmprestimo">
+			<p:dataTable  emptyMessage="Não existem itens nesta requisição">
+
 				<p:column headerText="Categoria" style="width:150px">
-						
+					#{listaItensEmprestados.categoria.nome}
 				</p:column>
 				<p:column headerText="Modelo" style="width:130px">
-						
+					#{listaItensEmprestados.modelo}
 				</p:column>
 				<p:column headerText="Fabricante">
-					
+					#{listaItensEmprestados.fabricante.nome}
 				</p:column>
-				<p:column headerText="Serial" >
-					
+				<p:column headerText="Serial">
+					#{listaItensEmprestados.serial}
 				</p:column>
 				<p:column headerText="Ativo fixo" style="width:90px">
-					
+					#{listaItensEmprestados.ativoFixo}
 				</p:column>
 			</p:dataTable>
-		
+			<p:commandButton value="Finalizar"/>
 		</h:form>
 	</ui:define>
 </ui:decorate>
