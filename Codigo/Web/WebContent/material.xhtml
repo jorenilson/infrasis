@@ -77,7 +77,7 @@
 		<!-- Aqui inicia a tabela de dados -->
 		<h:form id="tabela">
 			<p:dataTable value="#{materialMB.materiais}" var="material"
-				paginator="true" rows="10" paginatorPosition="bottom" emptyMessage="Sem registro a exibir">
+				paginator="true" rows="10" paginatorPosition="bottom" emptyMessage="Sem registro a exibir" selectionMode="single">
 
 				<p:column headerText="Cadastro">
 					<p:outputLabel value="#{material.dtCadastro.time}">

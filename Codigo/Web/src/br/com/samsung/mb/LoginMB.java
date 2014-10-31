@@ -1,15 +1,12 @@
 package br.com.samsung.mb;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
-import br.com.samsung.dao.JPAUtil;
 import br.com.samsung.dao.UsuarioDao;
 import br.com.samsung.model.Usuario;
 
@@ -18,21 +15,16 @@ import br.com.samsung.model.Usuario;
  * 
  * @author Jorenilson Lopes
  */
-@SessionScoped
+@SuppressWarnings("serial")
+@RequestScoped
 @ManagedBean
-public class LoginMB{
-	
-	private Usuario usuario = new Usuario();
-	private static boolean usuarioLogado;
-	
-	
-	public static boolean isUsuarioLogado() {
-		return usuarioLogado;
-	}
+public class LoginMB implements Serializable{
 
-	public static void setUsuarioLogado(boolean usuarioLogado) {
-		LoginMB.usuarioLogado = usuarioLogado;
-	}
+	private Usuario usuario = new Usuario();
+	private UsuarioDao dao = new UsuarioDao();
+	private UsuarioLogado usuarioLogado = new UsuarioLogado();
+	
+	
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -44,26 +36,41 @@ public class LoginMB{
 	
 	
 	public String efetuarLogin() {
-		UsuarioDao dao = new UsuarioDao();
-		boolean loginValido = dao.existe(usuario);
-		setUsuarioLogado(loginValido);
-		if(loginValido){
+		
+		boolean loginValido = dao.existe(this.usuario);
+		
+		if(loginValido) {
+			usuarioLogado.setUsuario(usuario);
 			return "sistema?faces-redirect=true";
-		}else{
+		}else {
+			resetaUsuario();
 			return "index?faces-redirect=true";
 		}
 	}
 	
 	
-	public void encarrearSessao(){
+	
+	public void sair(){
 		try{
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			HttpSession sessao = (HttpSession) ctx.getExternalContext().getSession(false);
 			sessao.invalidate();
-			setUsuarioLogado(false);
-			ctx.getExternalContext().redirect("/infrasisjsf/index.jsf");
+			this.resetaUsuario();
+			ctx.getExternalContext().redirect("/index.jsf");
 		}catch(Exception e){
 			
 		}
+	}
+	
+	
+	
+	public void resetaUsuario() {
+		usuarioLogado.setUsuario(null);
+	}
+	
+	
+	
+	public boolean isLogado() {
+		return usuarioLogado.isLogado();
 	}
 }
