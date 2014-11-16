@@ -25,4 +25,11 @@
   	<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
   	<param-value>client</param-value>
   </context-param>
+  
+  <!-- Configuração do wedt para usar CDI no tomcat -->
+  <listener>
+  	<listener-class>
+  		org.jboss.weld.environment.servlet.Listener
+  	</listener-class>
+  </listener>
 </web-app>

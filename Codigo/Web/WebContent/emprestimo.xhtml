@@ -6,95 +6,111 @@
 	xmlns:p="http://primefaces.org/ui">
 <ui:decorate template="sistema.xhtml">
 	<ui:define name="centro">
-		<h:form id="formEmprestimo">
-			<p:panelGrid columns="2">
-				<p:outputLabel value="Nome do Solicitante:" />
-				<p:inputText />
-			</p:panelGrid>
+		<h:form id="dados">
+			<!-- Formulário de Solicitação -->
+			<fieldset>
+				<legend>Dados da Solicitação</legend>
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Nome do solicitante" />
+					<p:inputText size="40" required="true" />
+				</p:panelGrid>
+			</fieldset>
+			
+			<br />
+			<br />
+			<br />
 		</h:form>
-		<br />
-		<h:form id="tabelaMateriais">
-			<p:dataTable value="#{materialMB.materiais}" var="material" paginator="true" paginatorPosition="bottom" >
-
-				<p:column headerText="Cadastro" style="width:55px">
-					<p:outputLabel value="#{material.dtCadastro.time}">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</p:outputLabel>
+		
+		<h:form id="tabelaMaterial">
+			<!-- Tabela de Materiais -->
+			<p:dataTable value="#{materialMB.materiais}" var="material"
+				paginator="true" rows="10" paginatorPosition="bottom" resizableColumns="true" >
+				
+				<p:column headerText="ID" style="width:30px" sortBy="#{material.id}">
+					#{material.id}
 				</p:column>
-
-				<p:column headerText="Categoria">
+				
+				<p:column headerText="Categoria" style="width:150px">
 					#{material.categoria.nome}
 				</p:column>
-				<p:column headerText="Modelo">
-						#{material.modelo}
-					</p:column>
-				<p:column headerText="Fabricante">
-					#{material.fabricante.nome}
-				</p:column>
-
-				<p:column headerText="Serial">
+				
+				<p:column headerText="Serial" style="width:120px">
 					#{material.serial}
 				</p:column>
-
-
-				<p:column headerText="Ativo fixo">
-					#{material.ativoFixo}	
+				
+				<p:column headerText="Ativo fixo" sortBy="#{material.ativoFixo}">
+					#{material.ativoFixo}
 				</p:column>
-
-				<p:column headerText="">
-					<p:commandButton action="#{emprestimoMB.adicionarItem}" update=":tbEmprestimo" value="Adicionar">
-					</p:commandButton>
-				</p:column>
-
-				<p:column>
-
-				</p:column>
-
-			</p:dataTable>
-		</h:form>
-		<br />
-		<br />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<h:form id="tbEmprestimo">
-			<p:dataTable  emptyMessage="Não existem itens nesta requisição">
-
-				<p:column headerText="Categoria" style="width:150px">
-					#{listaItensEmprestados.categoria.nome}
-				</p:column>
+				
 				<p:column headerText="Modelo" style="width:130px">
-					#{listaItensEmprestados.modelo}
+					#{material.modelo}
 				</p:column>
-				<p:column headerText="Fabricante">
-					#{listaItensEmprestados.fabricante.nome}
+				
+				<p:column headerText="Fabricante" style="width:150px">
+					#{material.fabricante.nome}
 				</p:column>
-				<p:column headerText="Serial">
-					#{listaItensEmprestados.serial}
+				
+				<p:column headerText="Status" style="width:150px">
+					#{material.status}
 				</p:column>
-				<p:column headerText="Ativo fixo" style="width:90px">
-					#{listaItensEmprestados.ativoFixo}
+				
+				<p:column headerText="Ação">
+					<h:commandLink update=":tabelaEmprestimo :tabelaMaterial" value="Adicionar" action="#{solicitacaoMB.adicionarItem}">
+						<f:setPropertyActionListener target="#{materialMB.material}"
+							value="#{material}" />
+					</h:commandLink>				
 				</p:column>
+				
+				<p:column/>
+				
+				
 			</p:dataTable>
-			<p:commandButton value="Finalizar"/>
 		</h:form>
+		
+		<!-- Dados do Material aqui -->
+		<h:form id="tabelaEmprestimo">
+			<h2>Itens do Empréstimo</h2>
+			<p:dataTable value="#{solicitacaoMB.solicitacao.itens}" var="item" rows="10">
+				<p:column headerText="ID" style="width:36px" sortBy="#{material.id}">
+					#{item.material.id}
+				</p:column>
+				
+				<p:column headerText="Categoria" style="width:150px">
+					#{item.material.categoria.nome}
+				</p:column>
+				
+				<p:column headerText="Serial" style="width:120px">
+					#{item.material.serial}
+				</p:column>
+				
+				<p:column headerText="Ativo fixo" sortBy="#{material.ativoFixo}">
+					#{item.material.ativoFixo}
+				</p:column>
+				
+				<p:column headerText="Modelo" style="width:130px">
+					#{item.material.modelo}
+				</p:column>
+				
+				<p:column headerText="Fabricante" style="width:150px">
+					#{item.material.fabricante.nome}
+				</p:column>
+				
+				<p:column headerText="Ação">
+					<h:commandLink value="Remover"/>
+									
+				</p:column>
+				
+				<p:column>
+					
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+		
 	</ui:define>
 </ui:decorate>
+<h:head></h:head>
+<body>
+
+</body>
 </html>

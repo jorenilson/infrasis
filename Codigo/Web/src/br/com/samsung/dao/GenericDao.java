@@ -33,7 +33,7 @@ public class GenericDao<T> {
 	public void atualizar(T t){
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
-		em.remove(em.merge(t));
+		em.merge(t);
 		em.getTransaction().commit();
 		em.close();
 	}
@@ -55,11 +55,15 @@ public class GenericDao<T> {
 		return query.getResultList();
 	}
 	
-	public T buscarPorId(Long id) {
+	public T buscarPorId(Integer integer) {
 		EntityManager em = JPAUtil.getEntityManager();
-		T instancia = em.find(classe, id);
-		
+		T instancia = em.find(classe, integer);
 		em.close();
 		return instancia;
+	}
+	
+	public T buscar(Integer codigo) {
+		EntityManager em = JPAUtil.getEntityManager();
+		return em.getReference(classe, codigo);
 	}
 }

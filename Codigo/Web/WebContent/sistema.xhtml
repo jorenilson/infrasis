@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html" />
 <h:head>
-	<title>Home - [SCTI]</title>
+	<title>Home - [SCE]</title>
 	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <body>
@@ -26,7 +26,7 @@
 				<!-- Mensagem de Boas Vindas -->
 				<div id="usuarioLogado" align="right">
 					<b>Bem Vindo(a): </b>
-					<h:outputText value="#{loginMB.usuario.nome}" />
+					<h:outputText value="#{usuarioLogado.usuario.login}" />
 					<br/>
 					<h:form>
 						
@@ -36,15 +36,15 @@
 		</p:layoutUnit>
 
 
-		<!-- Início do Layout Menu da Página -->
-		<p:layoutUnit position="west" size="170">
+		<!-- Menu Lateral -->
+		<p:layoutUnit header="Menu Principal" position="west" size="200" resizable="true" closable="false" collapsible="true">
 			<!-- Inicio do Menu Principal -->
 			<h:form>
 				<p:menu style="font-size:12px; width: auto">
 					<p:menuitem value="Home" action="sistema.jsf" />
 					<p:submenu label="Organizador">
 						<p:menuitem value="Manter Material" action="material" />
-						<p:menuitem value="Movimentação" action="emprestimo" disabled="true"/>
+						<p:menuitem value="Realizar empréstimo" action="emprestimo" disabled="false"/>
 					</p:submenu>
 					<p:submenu label="Sistema">
 						<p:menuitem value="Usuário" action="manterusuario" disabled="true"/>
@@ -66,7 +66,7 @@
 		<!-- Fim do Layout Central da Página -->
 
 
-		<p:layoutUnit position="south" size="60">
+		<p:layoutUnit header="Mensagem" position="south" size="70" resizable="true" closable="false" collapsible="true">
 			Mensagens
 		</p:layoutUnit>
 	</p:layout>

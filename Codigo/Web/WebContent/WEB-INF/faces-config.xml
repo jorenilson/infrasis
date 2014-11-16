@@ -11,8 +11,8 @@
     </lifecycle>
     
     <managed-bean>
-    	<managed-bean-name>loginUsuario</managed-bean-name>
-    	<managed-bean-class>br.com.samsung.controle.mb.LoginBean</managed-bean-class>
+    	<managed-bean-name>Nome</managed-bean-name>
+    	<managed-bean-class>br.com.samsung.mb.LoginMB</managed-bean-class>
     	<managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>

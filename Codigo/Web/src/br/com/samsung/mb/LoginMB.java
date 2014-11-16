@@ -1,76 +1,76 @@
 package br.com.samsung.mb;
 
+
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.samsung.dao.UsuarioDao;
 import br.com.samsung.model.Usuario;
 
-/**
- * Classe destinada a tratar o Login do usuário no sistema.
- * 
- * @author Jorenilson Lopes
- */
+
 @SuppressWarnings("serial")
+@Named
 @RequestScoped
-@ManagedBean
 public class LoginMB implements Serializable{
-
-	private Usuario usuario = new Usuario();
-	private UsuarioDao dao = new UsuarioDao();
-	private UsuarioLogado usuarioLogado = new UsuarioLogado();
 	
-	
+	@Inject
+	private Usuario usuario;
 
+	@Inject
+	private UsuarioDao dao;
+	
+	@Inject
+	private UsuarioLogado usuarioLogado;
+
+	
+		
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
-
+	
+	
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
+
+
+
+
 	public String efetuarLogin() {
-		
-		boolean loginValido = dao.existe(this.usuario);
-		
-		if(loginValido) {
-			usuarioLogado.setUsuario(usuario);
-			return "sistema?faces-redirect=true";
-		}else {
-			resetaUsuario();
-			return "index?faces-redirect=true";
-		}
-	}
-	
-	
-	
-	public void sair(){
 		try{
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			HttpSession sessao = (HttpSession) ctx.getExternalContext().getSession(false);
-			sessao.invalidate();
-			this.resetaUsuario();
-			ctx.getExternalContext().redirect("/index.jsf");
+			boolean loginValido = dao.existe(this.usuario);
+			if(loginValido){
+				System.out.println("Encontrou");
+				usuarioLogado.setUsuario(this.usuario);
+				return "sistema?faces-redirect=true";
+			}else{
+				System.out.println("Não Encontrou");
+				return "index?faces-redirect=true";
+			}
 		}catch(Exception e){
-			
+			System.out.println("Ocorreu um error!");
 		}
+		return null;		
 	}
 	
+	
+	public String sair() {
+		this.resetaUsuario();
+		return "index?faces-redirect=true"; 
+	}
+	
+	
+	public boolean isLogado() {
+		return usuarioLogado.isLogado();
+	}
 	
 	
 	public void resetaUsuario() {
 		usuarioLogado.setUsuario(null);
 	}
 	
-	
-	
-	public boolean isLogado() {
-		return usuarioLogado.isLogado();
-	}
 }

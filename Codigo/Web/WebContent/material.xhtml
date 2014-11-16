@@ -18,90 +18,61 @@
 		<h:form>
 			<p:menubar>
 				<p:submenu label="Cadastrar">
-					<p:menuitem value="Nova categoria" icon="ui-icon-contact"
+					<p:menuitem value="Nova Categoria" icon="ui-icon-contact"
 						onclick="PF('dlgCategoria').show();" />
 					<p:menuitem value="Novo fabricante" icon="ui-icon-pencil"
 						onclick="PF('dlgFabricante').show()" />
+					<p:menuitem value="Novo Material" icon="ui-icon-pencil"
+						onclick="PF('dlgMaterial').show()" />
 				</p:submenu>
 			</p:menubar>
 		</h:form>
 
 		<br />
-
-		<!-- Formulário para cadastro de Equipamentos -->
-		<h:form id="dados">
-
-			<p:panelGrid columns="2">
-				<p:outputLabel value="Categoria:" />
-				<p:selectOneMenu id="formCategoria"	value="#{emprestimoMB.idMaterial}" required="true" effect="fold">
-					<f:selectItem itemLabel="Selecione categoria" />
-					<f:selectItems value="#{categoriaMB.categorias}" var="c" itemValue="#{c.id}" itemLabel="#{c.nome}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Serial:" />
-				<p:inputText id="idserial" value="#{materialMB.material.serial}"
-					size="40" required="true" />
-
-
-				<p:outputLabel value="Ativo fixo:" />
-				<p:inputText id="ativofixo" value="#{materialMB.material.ativoFixo}"
-					size="40" required="true" />
-
-
-				<p:outputLabel value="Modelo:" />
-				<p:inputText id="modelo" value="#{materialMB.material.modelo}"
-					size="40" required="true" />
-
-				<p:outputLabel value="Fabricante:" />
-				<p:selectOneMenu id="idfabric" value="#{emprestimoMB.idFabricante}"
-					required="true" effect="fold">
-					<f:selectItem itemLabel="Selecione fabricante" />
-					<f:selectItems value="#{fabricanteMB.fabricantes}" var="f"
-						itemValue="#{f.id}" itemLabel="#{f.nome}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Descricao" />
-				<p:inputTextarea cols="41" value="#{materialMB.material.descricao}"
-					required="true" />
-
-				<f:facet name="footer">
-					<p:commandButton id="btGravar" value="Gravar"
-						action="#{materialMB.salvar}" update=":tabela" ajax="false" />
-				</f:facet>
-			</p:panelGrid>
-		</h:form>
 		<br />
-		<!-- Fim do formulário para cadastro de equipamentos -->
-
-
+		
+		
+		
+		Realize o cadastramento dos equipamentos inventariados.
 		<!-- Aqui inicia a tabela de dados -->
 		<h:form id="tabela">
 			<p:dataTable value="#{materialMB.materiais}" var="material"
-				paginator="true" rows="10" paginatorPosition="bottom" emptyMessage="Sem registro a exibir" selectionMode="single">
+				paginator="true" rows="10" paginatorPosition="bottom"
+				resizableColumns="true" selectionMode="single" rowKey="#{material.id}">
 
-				<p:column headerText="Cadastro">
+				<p:column headerText="ID" style="width:30px" sortBy="#{material.id}">
+					#{material.id}
+				</p:column>
+
+				<p:column headerText="Cadastro" style="width:100px" sortBy="#{material.dtCadastro}">
 					<p:outputLabel value="#{material.dtCadastro.time}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</p:outputLabel>
 				</p:column>
 
-				<p:column headerText="Categoria" style="width:150px">
+				<p:column headerText="Categoria" style="width:110px"
+					sortBy="#{material.categoria.nome}">
 					#{material.categoria.nome}
 				</p:column>
-				<p:column headerText="Modelo" style="width:130px">
-						#{material.modelo}
-					</p:column>
-				<p:column headerText="Fabricante">
-					#{material.fabricante.nome}
-				</p:column>
 
-				<p:column headerText="Serial">
+				<p:column headerText="Serial" style="width:120px" sortBy="#{material.serial}">
 					#{material.serial}
 				</p:column>
 
-
-				<p:column headerText="Ativo fixo">
+				<p:column headerText="Ativo fixo" sortBy="#{material.ativoFixo}">
 					#{material.ativoFixo}
+				</p:column>
+
+				<p:column headerText="Modelo" style="width:130px" sortBy="#{material.modelo}">
+					#{material.modelo}
+				</p:column>
+
+				<p:column headerText="Fabricante" style="width:100px" sortBy="#{material.fabricante.nome}">
+					#{material.fabricante.nome}
+				</p:column>
+
+				<p:column headerText="Status" style="width:80px" sortBy="#{material.status}">
+					#{material.status}
 				</p:column>
 
 				<p:column>
@@ -113,8 +84,8 @@
 				</p:column>
 
 
-				<p:column headerText="">
-					<p:commandLink id="linkAlterar" update=":dados" value="Alterar">
+				<p:column>
+					<p:commandLink update=":dados" value="Alterar" onclick="PF('dlgMaterial').show()">
 						<f:setPropertyActionListener target="#{materialMB.material}"
 							value="#{material}" />
 					</p:commandLink>
@@ -146,7 +117,8 @@
 
 			<h:form id="tabelaCategorias">
 				<p:dataTable value="#{categoriaMB.categorias}" var="categoria"
-					paginator="true" paginatorPosition="bottom" rows="5" emptyMessage="Sem registro a exibir">
+					paginator="true" paginatorPosition="bottom" rows="5"
+					emptyMessage="Sem registro a exibir">
 					<p:column headerText="Código" style="width:40px">
 						#{categoria.id}
 					</p:column>
@@ -154,7 +126,7 @@
 					<p:column headerText="Categoria" style="width:133px">
 						#{categoria.nome}
 					</p:column>
-					
+
 					<p:column headerText="" style="width:42px">
 						<p:commandLink value="Excluir" update=":tabelaCategorias :dados"
 							action="#{categoriaMB.excluir}">
@@ -162,10 +134,10 @@
 								value="#{categoria}" />
 						</p:commandLink>
 					</p:column>
-					
+
 					<p:column headerText="" style="width:30px">
 						<p:commandLink value="Alterar">
-							
+
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
@@ -177,19 +149,21 @@
 
 
 
+		<!-- janela para Cadastro de Material -->
 
-
-		<p:dialog header="Cadastro de Fabricantes" widgetVar="dlgFabricante"
-			modal="false" height="300" width="600"  showEffect="explode"
+		<p:dialog header="Cadastro de Material" widgetVar="dlgFabricante"
+			modal="false" height="300" width="600" showEffect="explode"
 			hideEffect="bounce">
 			<h:form id="dadosFabricante">
 				<p:panelGrid columns="2" style="width:423px">
 					<p:outputLabel value="Nome fantasia:" />
 					<p:inputText value="#{fabricanteMB.fabricante.nome}" />
 					<p:outputLabel value="CNPJ:" />
-					<p:inputMask mask="99.999.999/9999-99" value="#{fabricanteMB.fabricante.cnpj}" />
+					<p:inputMask mask="99.999.999/9999-99"
+						value="#{fabricanteMB.fabricante.cnpj}" />
 					<f:facet name="footer">
-						<p:commandButton id="btGravarFabricante" value="Gravar" action="#{fabricanteMB.salvar}" update=":dados :tabelaFabricante" />
+						<p:commandButton id="btGravarFabricante" value="Gravar"
+							action="#{fabricanteMB.salvar}" update=":dados :tabelaFabricante" />
 					</f:facet>
 				</p:panelGrid>
 
@@ -198,35 +172,112 @@
 
 
 			<!-- Tabela de Fabricantes -->
-			
+
 			<h:form id="tabelaFabricante">
-				<p:dataTable value="#{fabricanteMB.fabricantes}" var="fabricante" paginator="true"
-					paginatorPosition="bottom" rows="5" emptyMessage="Sem registro a exibir.">
+				<p:dataTable value="#{fabricanteMB.fabricantes}" var="fabricante"
+					paginator="true" paginatorPosition="bottom" rows="5"
+					emptyMessage="Sem registro a exibir.">
 					<p:column headerText="Código" style="width:40px">
 						#{fabricante.id}
 					</p:column>
-					
+
 					<p:column headerText="Fabricante" style="width:180px">
 						#{fabricante.nome}
 					</p:column>
-					
+
 					<p:column headerText="CNPJ" style="width:125px">
 						#{fabricante.cnpj}
 					</p:column>
-					
+
 					<p:column headerText="" style="width:30px">
-						<p:commandLink value="Excluir" action="#{fabricanteMB.excluir}" update=":tabelaFabricante :dados">
-							<f:setPropertyActionListener target="#{fabricanteMB.fabricante}"	value="#{fabricante}" />
+						<p:commandLink value="Excluir" action="#{fabricanteMB.excluir}"
+							update=":tabelaFabricante :dados">
+							<f:setPropertyActionListener target="#{fabricanteMB.fabricante}"
+								value="#{fabricante}" />
 						</p:commandLink>
 					</p:column>
 					<p:column headerText="" style="width:30px">
 						<p:commandLink value="Alterar">
-							
+
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
 			</h:form>
 		</p:dialog>
+
+
+		<!-- Janela para cadastro de Material -->
+		<p:dialog header="Cadastro de Material" widgetVar="dlgMaterial"
+			modal="false" height="300" width="500" showEffect="fade"
+			hideEffect="fade">
+
+			<!-- Formulário para cadastro de Equipamentos -->
+			<h:form id="dados">
+
+				<p:panelGrid columns="2">
+
+					<p:outputLabel value="Categoria:" />
+					<p:selectOneMenu value="#{materialMB.material.categoria}"
+						required="true">
+						<f:selectItem itemLabel="Selecionar" />
+						<f:selectItems value="#{categoriaMB.categoriaSelecionada}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Serial:" />
+					<p:inputText id="idserial" value="#{materialMB.material.serial}"
+						size="40" required="true" />
+
+
+					<p:outputLabel value="Ativo fixo:" />
+					<p:inputText id="ativofixo"
+						value="#{materialMB.material.ativoFixo}" size="40" required="true" />
+
+
+					<p:outputLabel value="Modelo:" />
+					<p:inputText id="modelo" value="#{materialMB.material.modelo}"
+						size="40" required="true" />
+
+					<p:outputLabel value="Fabricante:" />
+					<p:selectOneMenu value="#{materialMB.material.fabricante}"
+						required="true">
+						<f:selectItem itemLabel="Selecionar fabricante" />
+						<f:selectItems value="#{fabricanteMB.fabricanteSelecionado}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Descricao" />
+					<p:inputTextarea cols="41" value="#{materialMB.material.descricao}" />
+
+					<f:facet name="footer">
+						<p:commandButton id="btGravar" value="Gravar"
+							action="#{materialMB.salvar()}" update=":tabela :dados"
+							rendered="#{materialMB.material.id == null}" />
+						<p:tooltip value="Cadastrar material" for="btGravar"
+							showEffect="fade" />
+
+						<p:commandButton id="btAlterar" value="Alterar"
+							action="#{materialMB.salvar()}" update=":tabela :dados"
+							rendered="#{materialMB.material.id != null}" />
+						<p:tooltip value="Alterar cadastro" for="btAlterar" />
+
+						<p:commandButton id="btCancelar" value="Cancelar"
+							action="#{materialMB.resetaMaterial()}" update=":tabela :dados"
+							rendered="#{materialMB.material.id != null}" />
+						<p:tooltip value="Cancelar alteração" for="btCancelar" />
+						
+						<p:commandButton id="btFechar" value="Fechar"
+							action="PF('dlgMaterial').hide()" />
+						<p:tooltip value="Fechar" for="btFechar" />
+
+					</f:facet>
+
+				</p:panelGrid>
+			</h:form>
+
+
+
+		</p:dialog>
+
+
 	</ui:define>
 
 

@@ -1,43 +1,37 @@
 package br.com.samsung.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Emprestimo {
 	@Id
 	@GeneratedValue
-	private Long id;
-	private String nomeSolicitante;
+	private Integer id;
 	@ManyToOne
 	private Material material;
+	@ManyToOne
+	private Solicitacao solicitacao;
 	
-	
-	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Material getMaterial() {
 		return material;
 	}
 	public void setMaterial(Material material) {
 		this.material = material;
 	}
-	public String getNomeSolicitante() {
-		return nomeSolicitante;
+	public Solicitacao getSolicitacao() {
+		return solicitacao;
 	}
-	public void setNomeSolicitante(String nomeSolicitante) {
-		this.nomeSolicitante = nomeSolicitante;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setSolicitacao(Solicitacao solicitacao) {
+		this.solicitacao = solicitacao;
 	}
 	
 	

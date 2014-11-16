@@ -1,6 +1,5 @@
 package br.com.samsung.model;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
@@ -14,7 +13,7 @@ import javax.persistence.TemporalType;
 public class Material {
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
 	@ManyToOne
 	private Categoria categoria;
 	private String modelo;
@@ -24,8 +23,8 @@ public class Material {
 	private String ativoFixo;
 	@Temporal(TemporalType.DATE)
 	private Calendar dtCadastro;
-	private String Status;
 	private String descricao;
+	private String Status;
 
 	public String getDescricao() {
 		return descricao;
@@ -60,11 +59,11 @@ public class Material {
 		Status = status;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -99,4 +98,6 @@ public class Material {
 	public void setDtCadastro(Calendar dtCadastro) {
 		this.dtCadastro = dtCadastro;
 	}
+
+	
 }

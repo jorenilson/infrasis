@@ -6,17 +6,17 @@
 	xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html" />
 <h:head>
-	<title>Sistema Controle de Empréstimo</title>
+	<title>Sistema de Controle de TI</title>
 	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <body>
 	<h:form>
 		<p:dialog header="Autenticar - [SCE]" closable="false" resizable="false" visible="true" showEffect="drop">
-			<h:panelGrid columns="2" cellpadding="5" cellspacing="0">
-				<h:outputLabel value="Usuário: *"/>
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputLabel value="Usuário:*"/>
 				<p:inputText id="idusuario" value="#{loginMB.usuario.login}" required="true" />
 
-				<h:outputLabel value="Senha: *" />
+				<h:outputLabel value="Senha:*" />
 				<p:password password="true" value="#{loginMB.usuario.senha}" required="true" />
 				
 				<f:facet name="footer">

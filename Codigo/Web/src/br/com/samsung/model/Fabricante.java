@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Fabricante implements Serializable {
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
 	private String nome;
 	private String cnpj;
 	
@@ -22,10 +22,11 @@ public class Fabricante implements Serializable {
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
-	public Long getId() {
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getNome() {

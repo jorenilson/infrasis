@@ -10,7 +10,7 @@ import br.com.samsung.mb.LoginMB;
 
 @SuppressWarnings("serial")
 public class LoginPhaseListener implements PhaseListener {
-	
+
 	@Override
 	public void afterPhase(PhaseEvent evento) {
 		// Método em que ocorre a validaçãode Usuário logado
@@ -18,21 +18,21 @@ public class LoginPhaseListener implements PhaseListener {
 		FacesContext context = evento.getFacesContext();
 		//Verificação de acesso a página de login da aplicação
 		String  pagina = context.getViewRoot().getViewId();
-		if(pagina.equals("/index.jsf") || pagina.equals("/index.xhtml")){
+		if(pagina.equals("/index.xhtml") || pagina.equals("/index.jsf")){
 			return;
 		}
 		
 		//Carregando o objeto loginBean da sessão
-		LoginMB loginMB = context.getApplication().evaluateExpressionGet(context, "#{loginMB}", LoginMB.class);
-		
+		LoginMB loginBean = context.getApplication().evaluateExpressionGet(context, "#{loginMB}", LoginMB.class);
 		
 		//Validação de autenticação
-		if(!loginMB.isLogado()){
+		if(!loginBean.isLogado()){
 			//Carga do objeto de navegação
 			NavigationHandler handler = context.getApplication().getNavigationHandler();
 			//redirecionamento para a tela de login
 			handler.handleNavigation(context, null, "index?faces-redirect=true");
-			//context.renderResponse();
+			
+			context.renderResponse();
 		}
 	}
 

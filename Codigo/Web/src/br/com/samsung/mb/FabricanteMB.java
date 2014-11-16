@@ -1,26 +1,54 @@
 package br.com.samsung.mb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.model.SelectItem;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import br.com.samsung.dao.GenericDao;
+import br.com.samsung.dao.JPAUtil;
 import br.com.samsung.model.Fabricante;
 
-@ManagedBean
-@ViewScoped
+@Named
+@RequestScoped
 public class FabricanteMB {
-	private Fabricante fabricanteSelecionado;
+	//private Fabricante fabricanteSelecionado;
 	private List<Fabricante> fabricantes;
 	private Fabricante fabricante = new Fabricante();
+	private List<SelectItem>fabricanteSelecionado;
 	
 	@PostConstruct
 	public void carregarFabricantes(){
 		fabricantes = new GenericDao<Fabricante>(Fabricante.class).listarTodos();
 	}
 	
+	
+	
+	public List<SelectItem> getFabricanteSelecionado() {
+		if (fabricanteSelecionado == null) {
+			fabricanteSelecionado = new ArrayList<SelectItem>();
+			EntityManager em = JPAUtil.getEntityManager();
+			GenericDao<Fabricante>daoFabricante = new GenericDao<Fabricante>(Fabricante.class);
+			List<Fabricante>listaFabricantes = daoFabricante.listarTodos();
+			
+			if (listaFabricantes != null && !listaFabricantes.isEmpty()) {
+				SelectItem item;
+				for (Fabricante fabricanteLista : listaFabricantes) {
+					item = new SelectItem(fabricanteLista, fabricanteLista.getNome());
+					fabricanteSelecionado.add(item);
+				}
+				
+			}
+		}
+		return fabricanteSelecionado;		
+	}
+
+
+
 	public Fabricante getFabricante() {
 		return fabricante;
 	}
@@ -37,13 +65,6 @@ public class FabricanteMB {
 		this.fabricantes = fabricantes;
 	}
 
-	public Fabricante getFabricanteSelecionado() {
-		return fabricanteSelecionado;
-	}
-
-	public void setFabricanteSelecionado(Fabricante fabricanteSelecionado) {
-		this.fabricanteSelecionado = fabricanteSelecionado;
-	}
 	
 	public void salvar(){
 		GenericDao<Fabricante> dao = new GenericDao<Fabricante>(Fabricante.class);
