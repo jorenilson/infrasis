@@ -99,8 +99,8 @@
 
 		<!-- Cadastro de Categorias -->
 		<p:dialog header="Cadastro de Categorias" widgetVar="dlgCategoria"
-			modal="false" height="300" width="360" showEffect="explode"
-			hideEffect="bounce">
+			modal="false" height="300" width="360" showEffect="fade"
+			hideEffect="fade">
 			<h:form id="dadosCategoria">
 				<p:panelGrid columns="2">
 					<p:outputLabel value="Nome da Categoria:" />
@@ -152,8 +152,8 @@
 		<!-- janela para Cadastro de Material -->
 
 		<p:dialog header="Cadastro de Material" widgetVar="dlgFabricante"
-			modal="false" height="300" width="600" showEffect="explode"
-			hideEffect="bounce">
+			modal="false" height="300" width="600" showEffect="fade"
+			hideEffect="fade">
 			<h:form id="dadosFabricante">
 				<p:panelGrid columns="2" style="width:423px">
 					<p:outputLabel value="Nome fantasia:" />
@@ -166,13 +166,8 @@
 							action="#{fabricanteMB.salvar}" update=":dados :tabelaFabricante" />
 					</f:facet>
 				</p:panelGrid>
-
-
 			</h:form>
-
-
 			<!-- Tabela de Fabricantes -->
-
 			<h:form id="tabelaFabricante">
 				<p:dataTable value="#{fabricanteMB.fabricantes}" var="fabricante"
 					paginator="true" paginatorPosition="bottom" rows="5"
@@ -206,7 +201,7 @@
 		</p:dialog>
 
 
-		<!-- Janela para cadastro de Material -->
+		<!-- Formulário para cadastro de Material -->
 		<p:dialog header="Cadastro de Material" widgetVar="dlgMaterial"
 			modal="false" height="300" width="500" showEffect="fade"
 			hideEffect="fade">
@@ -265,7 +260,8 @@
 						<p:tooltip value="Cancelar alteração" for="btCancelar" />
 						
 						<p:commandButton id="btFechar" value="Fechar"
-							action="PF('dlgMaterial').hide()" />
+							action="#{materialMB.resetaMaterial()}" update=":tabela :dados"
+							onclick="PF('dlgMaterial').hide()" />
 						<p:tooltip value="Fechar" for="btFechar" />
 
 					</f:facet>

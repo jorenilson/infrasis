@@ -11,8 +11,8 @@
 			<fieldset>
 				<legend>Dados da Solicitação</legend>
 				<p:panelGrid columns="2">
-					<p:outputLabel value="Nome do solicitante" />
-					<p:inputText size="40" required="true" />
+					<p:outputLabel value="Nome do solicitante"/>
+					<p:inputText size="40" value="#{solicitacaoMB.usuario.nome}" required="true" />
 				</p:panelGrid>
 			</fieldset>
 			
@@ -105,6 +105,8 @@
 				</p:column>
 				
 			</p:dataTable>
+			<br />
+			<p:commandButton value="Gravar" action="#{solicitacaoMB.adicionar()}" update=":tabelaEmprestimo :tabelaMaterial"></p:commandButton>
 		</h:form>
 		
 	</ui:define>
