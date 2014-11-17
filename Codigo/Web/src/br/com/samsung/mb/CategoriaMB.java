@@ -1,5 +1,6 @@
 package br.com.samsung.mb;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import br.com.samsung.model.Categoria;
 
 @Named
 @RequestScoped
-public class CategoriaMB{
+public class CategoriaMB implements Serializable{
 	@Inject
 	private Categoria categoria;
 	private List<Categoria> categorias;

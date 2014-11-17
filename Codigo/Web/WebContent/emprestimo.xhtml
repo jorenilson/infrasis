@@ -6,22 +6,20 @@
 	xmlns:p="http://primefaces.org/ui">
 <ui:decorate template="sistema.xhtml">
 	<ui:define name="centro">
-		<h:form id="dados">
+	<h:form id="tabelaMaterial">
 			<!-- Formulário de Solicitação -->
 			<fieldset>
 				<legend>Dados da Solicitação</legend>
 				<p:panelGrid columns="2">
-					<p:outputLabel value="Nome do solicitante"/>
-					<p:inputText size="40" value="#{solicitacaoMB.usuario.nome}" required="true" />
+					<p:outputLabel value="Nome do solicitante" />
+					<h:inputText value="#{solicitacaoMB.solicitacao.solicitante}" required="true" />
 				</p:panelGrid>
 			</fieldset>
 			
 			<br />
 			<br />
 			<br />
-		</h:form>
-		
-		<h:form id="tabelaMaterial">
+	
 			<!-- Tabela de Materiais -->
 			<p:dataTable value="#{materialMB.materiais}" var="material"
 				paginator="true" rows="10" paginatorPosition="bottom" resizableColumns="true" >
@@ -95,6 +93,10 @@
 					#{item.material.fabricante.nome}
 				</p:column>
 				
+				<p:column headerText="Status" style="width:150px">
+					#{item.material.status}
+				</p:column>
+				
 				<p:column headerText="Ação">
 					<h:commandLink value="Remover"/>
 									
@@ -106,7 +108,7 @@
 				
 			</p:dataTable>
 			<br />
-			<p:commandButton value="Gravar" action="#{solicitacaoMB.adicionar()}" update=":tabelaEmprestimo :tabelaMaterial"></p:commandButton>
+			<p:commandButton value="Gravar" action="#{solicitacaoMB.adicionar}"  update=":tabelaEmprestimo :tabelaMaterial"/>
 		</h:form>
 		
 	</ui:define>
